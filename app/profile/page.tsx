@@ -1,7 +1,12 @@
+import ProfileFields from "@/components/profile/profileFields";
 import React from "react";
 
 const ProfilePage = () => {
-  return <div>Needs to be implemented</div>;
+  return (
+    <div>
+      <ProfileFields />
+    </div>
+  );
 };
 
 export default ProfilePage;
