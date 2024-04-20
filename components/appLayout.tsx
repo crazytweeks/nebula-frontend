@@ -3,7 +3,7 @@ import { Navbar } from "@/components/navbar/navbar";
 import MobileBottomNav from "./navbar/mobileBottomNav";
 import { userSchema } from "@/config/user";
 
-export const revalidate = 1;
+export const revalidate = 30;
 
 const getInitialData = async () => {
   const someData = await fetch("http://localhost:3000/api/test", {
