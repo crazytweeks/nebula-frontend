@@ -1,7 +1,9 @@
 import { FC, PropsWithChildren } from "react";
 import { Navbar } from "@/components/navbar/navbar";
 import MobileBottomNav from "./navbar/mobileBottomNav";
-import { userSchema } from "@/app/api/test/route";
+import { userSchema } from "@/config/user";
+
+export const revalidate = 1;
 
 const getInitialData = async () => {
   const someData = await fetch("http://localhost:3000/api/test", {
@@ -10,7 +12,6 @@ const getInitialData = async () => {
       "Content-Type": "application/json",
       Authorization: "321",
     },
-    cache: "no-store",
   })
     .then((res) => res.json())
     .catch((err) => console.error(err));

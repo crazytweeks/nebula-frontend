@@ -17,7 +17,6 @@ import SignOut from "@/app/sign-out";
 import { Logo, LogoIconOnly } from "@/components/icons";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { AvatarFallback } from "@/components/ui/avatar";
-import type { User } from "@app/api/test/route";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +29,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import NavSearch from "./navSearch";
 import Notifications from "./notifications";
+import { User } from "@/config/user";
 
 type Props = {
   isAuthenticated: boolean;
