@@ -93,9 +93,11 @@ type InputOptions = {
     | "email";
 };
 
+type Option = { label: string; value: string };
+
 type SelectOptions = {
   label?: string;
-  children: React.ReactNode;
+  options: Option[];
 };
 
 const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
@@ -124,26 +126,26 @@ const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
 const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
   const { field, fieldState } = useController(props);
   return (
-    // <Select
-    //   {...field}
-    //   label={
-    //     `${props.rules?.required ? ` ${props.label} *` : props.label}` ??
-    //     props.name
-    //   }
-    //   labelPlacement="outside"
-    //   // value={(field.value ?? "")}
-    //   isInvalid={
-    //     fieldState.isTouched && fieldState.isDirty && fieldState.invalid
-    //   }
-    //   errorMessage={fieldState.error?.message}
-    //   required={Boolean(props.rules?.required) ?? false}
-    // >
-    //   {/* {props.children} */}
-    //   <div>
-    //     <div></div>
-    //   </div>
-    // </Select>
-    <></>
+    <Select
+      {...field}
+      label={
+        `${props.rules?.required ? ` ${props.label} *` : props.label}` ??
+        props.name
+      }
+      labelPlacement="outside"
+      value={String(field.value) ?? ""}
+      isInvalid={
+        fieldState.isTouched && fieldState.isDirty && fieldState.invalid
+      }
+      errorMessage={fieldState.error?.message}
+      required={Boolean(props.rules?.required) ?? false}
+    >
+      {props.options.map((animal) => (
+        <SelectItem key={animal.value} value={String(animal.value)}>
+          {animal.label}
+        </SelectItem>
+      ))}
+    </Select>
   );
 };
 
@@ -215,8 +217,21 @@ const ProfileFields = () => {
               "lg:grid-cols-3",
               "xl:grid-cols-4"
             )}
-          ></div>
-          <Button type="submit">Submit</Button>
+          >
+            <FSelect
+              control={control}
+              name="gender"
+              label={"Gender"}
+              options={[
+                { label: "Male", value: "male" },
+                { label: "Female", value: "female" },
+              ]}
+            />
+          </div>
+
+          <div className={cn("py-4")}>
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </div>
     </div>
