@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Badge } from '@nextui-org/badge';
-import { Button } from '@nextui-org/button';
-import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal';
+import React, { useEffect, useState } from "react";
+import { Badge } from "@nextui-org/badge";
+import { Button } from "@nextui-org/button";
+import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
 
-import { cn } from '@/lib/utils';
-import { IconBell } from '../icons/bell';
-import { IconNotifications } from '../icons/notification';
-import TimeAgo from '../timeAgo';
+import { cn } from "@/lib/utils";
+import { IconBell } from "../icons/bell";
+import { IconNotifications } from "../icons/notification";
+import TimeAgo from "../timeAgo";
 
 const EachNotificationItem = ({ date }: Notification) => {
   return (
@@ -39,9 +39,9 @@ const EachNotificationItem = ({ date }: Notification) => {
         dark:text-white
       "
         >
-          <span className="font-bold">{'Bhuvan Bm'}</span>
-          {': created an account'}
-          <span className="ml-1 text-blue-500 hover:underline">{'Admin'}</span>
+          <span className="font-bold">{"Bhuvan Bm"}</span>
+          {": created an account"}
+          <span className="ml-1 text-blue-500 hover:underline">{"Admin"}</span>
         </p>
       </div>
 
@@ -69,11 +69,11 @@ const Notifications = () => {
   useEffect(() => {
     const interval = setTimeout(() => {
       const newNotification = {
-        title: 'New Notification',
-        description: 'You have a new notification',
-        url: '#',
+        title: "New Notification",
+        description: "You have a new notification",
+        url: "#",
         image:
-          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
         date: new Date(),
       };
 
@@ -87,38 +87,38 @@ const Notifications = () => {
   }, []);
 
   return (
-    <div
-      className="
-        duration-300 ease-in-out hover:scale-110 hover:transition
-    "
-    >
+    <>
       <Button
-        onPress={onOpen}
+        onClick={onOpen}
         isIconOnly
-        className={cn('hover:bg-transparent', 'bg-transparent')}
+        className={cn(
+          "hover:bg-transparent",
+          "bg-transparent",
+          "duration-300 ease-in-out hover:scale-110 hover:transition"
+        )}
       >
         <IconNotifications
           height={24}
           width={24}
-          className={cn('text-default-500', 'hover:text-default-600')}
+          className={cn("text-default-500", "hover:text-default-600")}
         />
       </Button>
       <Modal
         backdrop="opaque"
         isOpen={isOpen}
-        size={'2xl'}
+        size={"2xl"}
         onOpenChange={onOpenChange}
         classNames={{
           backdrop: cn(
-            'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20"
           ),
-          wrapper: 'p-0',
+          wrapper: "p-0",
         }}
         placement="auto"
       >
         <ModalContent>
           {(onClose) => (
-            <div className={cn('pt-12')}>
+            <div className={cn("pt-12")}>
               {notifications?.map((notification, index) => (
                 <EachNotificationItem key={index} {...notification} />
               ))}
@@ -149,7 +149,7 @@ const Notifications = () => {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 };
 
