@@ -26,6 +26,7 @@ import {
 import { Select, SelectSection, SelectItem } from "@nextui-org/select";
 import { DateInput } from "@nextui-org/date-input";
 import { CalendarDate, parseDate } from "@internationalized/date";
+import { DatePicker } from "@nextui-org/react";
 
 const userTypesArray = ["admin", "user", "super_admin"];
 const gendersArray = ["male", "female", "other"];
@@ -51,22 +52,23 @@ const profileSchema = z.object({
 
   userType: z.enum([userTypes.ADMIN, userTypes.USER, userTypes.SUPER_ADMIN]),
   gender: z.enum([gender.MALE, gender.FEMALE, gender.OTHER]),
-  dob: z.date(),
+  dob: z.string().datetime(),
 
   fatherName: z.string().min(2).max(50),
-  fatherOccupation: z.string().min(2).max(50),
+  fatherOccupation: z.string().min(2).max(50).optional(),
   fatherMobile: z.string().min(8).max(12),
-  fatherEmail: z.string().email(),
+  fatherEmail: z.string().email().optional(),
 
-  motherName: z.string().min(2).max(50),
-  motherOccupation: z.string().min(2).max(50),
-  motherMobile: z.string().min(8).max(12),
-  motherEmail: z.string().email(),
+  motherName: z.string().min(2).max(50).optional(),
+  motherOccupation: z.string().min(2).max(50).optional(),
+  motherMobile: z.string().min(8).max(12).optional(),
+  motherEmail: z.string().email().optional(),
 
-  annualIncome: z.number().min(0),
-  religion: z.string().min(2).max(50),
-  cast: z.string().min(2).max(50),
-  category: z.string().min(2).max(50),
+  motherTongue: z.string().min(2).max(50),
+  annualIncome: z.number().min(0).optional(),
+  religion: z.string().min(2).max(50).optional(),
+  cast: z.string().min(2).max(50).optional(),
+  category: z.string().min(2).max(50).optional(),
 
   address: z.string().min(2).max(400),
   pincode: z.string().min(6).max(6),
@@ -100,6 +102,10 @@ type SelectOptions = {
   options: Option[];
 };
 
+type DatePickerOptions = {
+  label?: string;
+};
+
 const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
   const { field, fieldState } = useController(props);
 
@@ -123,6 +129,28 @@ const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
   );
 };
 
+const FDatePicker = (
+  props: UseControllerProps<IProfile> & DatePickerOptions
+) => {
+  const { field, fieldState } = useController(props);
+
+  return (
+    <DatePicker
+      label={
+        `${props.rules?.required ? ` ${props.label} *` : props.label}` ??
+        props.name
+      }
+      labelPlacement="outside"
+      isInvalid={
+        fieldState.isTouched && fieldState.isDirty && fieldState.invalid
+      }
+      errorMessage={fieldState.error?.message}
+      required={Boolean(props.rules?.required) ?? false}
+      {...field}
+    />
+  );
+};
+
 const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
   const { field, fieldState } = useController(props);
   return (
@@ -132,8 +160,8 @@ const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
         `${props.rules?.required ? ` ${props.label} *` : props.label}` ??
         props.name
       }
+      disabled={props.disabled ?? false}
       labelPlacement="outside"
-      value={String(field.value) ?? ""}
       isInvalid={
         fieldState.isTouched && fieldState.isDirty && fieldState.invalid
       }
@@ -141,7 +169,7 @@ const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
       required={Boolean(props.rules?.required) ?? false}
     >
       {props.options.map((animal) => (
-        <SelectItem key={animal.value} value={String(animal.value)}>
+        <SelectItem key={animal.value} value={animal.value}>
           {animal.label}
         </SelectItem>
       ))}
@@ -226,6 +254,27 @@ const ProfileFields = () => {
                 { label: "Male", value: "male" },
                 { label: "Female", value: "female" },
               ]}
+            />
+
+            <FDatePicker
+              control={control}
+              name="dob"
+              label={"Date of birth"}
+              rules={{ required: true }}
+            />
+
+            <FInput
+              control={control}
+              name="fatherName"
+              rules={{ required: true }}
+              label={"Father Name"}
+            />
+
+            <FInput
+              control={control}
+              name="fatherOccupation"
+              rules={{ required: false }}
+              label={"Father Occupation"}
             />
           </div>
 
