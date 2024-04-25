@@ -9,6 +9,7 @@ import type {
   InputOptions,
   SelectOptions,
 } from "./profileSchemaTypes";
+import { DateValue, now, parseAbsoluteToLocal } from "@internationalized/date";
 
 const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
   const { field, fieldState } = useController(props);
@@ -58,13 +59,10 @@ const FDatePicker = (
     <DatePicker
       label={props.label ?? props.name}
       labelPlacement="outside"
-      isInvalid={
-        fieldState.isTouched && fieldState.isDirty && fieldState.invalid
-      }
+      isInvalid={fieldState.invalid}
       errorMessage={fieldState.error?.message}
       isRequired={Boolean(props.rules?.required) ?? false}
       {...field}
-      value={parseDate(`${field.value ?? "2024-04-04"}`)}
     />
   );
 };
@@ -77,9 +75,7 @@ const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
       label={props.label ?? props.name}
       disabled={props.disabled ?? false}
       labelPlacement="outside"
-      isInvalid={
-        fieldState.isTouched && fieldState.isDirty && fieldState.invalid
-      }
+      isInvalid={fieldState.invalid}
       isRequired={Boolean(props.rules?.required) ?? false}
       errorMessage={fieldState.error?.message}
       required={Boolean(props.rules?.required) ?? false}

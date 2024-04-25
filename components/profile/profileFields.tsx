@@ -21,6 +21,8 @@ import {
 } from "./profileFormController";
 import ConfirmModel from "../confirm/confirmModel";
 import { useDisclosure } from "@nextui-org/modal";
+import { toast } from "sonner";
+import { CardDescription, CardHeader, CardTitle } from "../ui/card";
 
 const ProfileFields = () => {
   const profileInputRef = useRef<HTMLInputElement>(null);
@@ -47,9 +49,54 @@ const ProfileFields = () => {
     onOpen();
   };
 
-  const onSubmit: SubmitHandler<IProfile> = (data) => console.log(data);
-  const onError: SubmitErrorHandler<IProfile> = (errors) =>
-    console.log("err", errors);
+  const onSubmit: SubmitHandler<IProfile> = (data) => {
+    console.log("data: ", data);
+
+    toast("Profile saved successfully!", {
+      description: "Check console for more details",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+      icon: "👍",
+      position: "top-right",
+      className: "bg-success-500",
+    });
+  };
+
+  const onError: SubmitErrorHandler<IProfile> = (errors) => {
+    console.log("errors: ", errors);
+    const ErrorCard = () => {
+      return (
+        <div>
+          <CardHeader>
+            <CardTitle>Error</CardTitle>
+            <CardDescription>
+              {
+                // errors loop for each field
+                Object.entries(errors).map(([field, { message }]) => (
+                  <p key={field}>
+                    <strong>{field}</strong>:{" "}
+                    {message?.toString() ?? "Field is invalid"}
+                  </p>
+                ))
+              }
+            </CardDescription>
+          </CardHeader>
+        </div>
+      );
+    };
+    toast(<ErrorCard />, {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+      icon: "🚨",
+      position: "top-right",
+      className: "bg-warning-500",
+    });
+  };
 
   return (
     <div>
@@ -132,7 +179,7 @@ const ProfileFields = () => {
 
           <div
             className={cn(
-              "grid grid-cols-1 gap-6",
+              "grid sm:grid-cols-1 gap-6",
               "sm:grid-cols-2",
               "lg:grid-cols-3",
               "xl:grid-cols-4"
@@ -182,7 +229,7 @@ const ProfileFields = () => {
                 { label: "User", value: userTypes.USER },
               ]}
             />
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <FTextarea
                 control={control}
                 name="about"
@@ -337,7 +384,7 @@ const ProfileFields = () => {
               "xl:grid-cols-4"
             )}
           >
-            <div className={cn("col-span-2")}>
+            <div className={"md:col-span-2"}>
               <FTextarea
                 control={control}
                 name="address"

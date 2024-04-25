@@ -32,7 +32,13 @@ const profileSchema = z.object({
     .enum([userTypes.ADMIN, userTypes.USER, userTypes.SUPER_ADMIN])
     .default(userTypes.USER),
   gender: z.enum([gender.MALE, gender.FEMALE, gender.OTHER]),
-  dob: z.string().datetime(),
+  dob: z.object({
+    day: z.number().min(1).max(31),
+    month: z.number().min(1).max(12),
+    year: z.number().min(1900).max(new Date().getFullYear()),
+    era: z.string().optional(),
+    calender: z.string().optional(),
+  }),
 
   fatherName: z.string().min(2).max(50),
   fatherOccupation: z.string().min(2).max(50).optional(),
@@ -61,7 +67,8 @@ const profileSchema = z.object({
     .optional()
     .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
     .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      (file) =>
+        ACCEPTED_IMAGE_TYPES.includes(file?.type) ?? file?.type === "undefined",
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     ),
 });
