@@ -38,7 +38,12 @@ type Props = {
 
 export const Navbar = async ({ user, isAuthenticated }: Props) => {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar
+      isBordered
+      maxWidth="xl"
+      position="sticky"
+      disableAnimation={true}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="max-w-fit gap-3">
           <NextLink className="flex items-center justify-start gap-1" href="/">
@@ -109,8 +114,9 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/profile">Profile</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 {isAuthenticated ? (
@@ -144,22 +150,10 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
 
       <NavbarMenu>
         <NavSearch />
-        <div className="mx-4 mt-2 flex flex-col gap-2">
+        <div className="mx-4 mt-4 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
-                {item.label}
-              </Link>
+              <NextLink href={item.href}>{item.label}</NextLink>
             </NavbarMenuItem>
           ))}
         </div>
