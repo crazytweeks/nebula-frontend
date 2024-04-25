@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .link {
+    @apply cursor-pointer underline;
+  }
+
+  .hover-style {
+    @apply hover:scale-105 transition-all duration-300;
+  }
+}
