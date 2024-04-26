@@ -1,6 +1,3 @@
-// icon:setting | Ant Design Icons https://ant.design/components/icon/ | Ant Design
-import * as React from "react";
-
 function IconSetting(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg

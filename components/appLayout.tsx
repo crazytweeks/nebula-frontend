@@ -33,7 +33,9 @@ const AppLayout: FC<PropsWithChildren> = async ({ children }) => {
     <div>
       <div className="relative flex  flex-col">
         <Navbar isAuthenticated={isAuthenticated} user={user} />
-        <main className="container mx-auto flex-grow">{children}</main>
+        <main className="md:container md:mx-auto md:px-2 p-0 m-0 min-w-full">
+          {children}
+        </main>
 
         <footer className="flex w-full items-center justify-center py-3">
           <div
