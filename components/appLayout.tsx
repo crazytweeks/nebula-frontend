@@ -5,8 +5,15 @@ import { userSchema } from "@/config/user";
 
 export const revalidate = 30;
 
+const url =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : `http://localhost:3000`;
+
 const getInitialData = async () => {
-  const someData = await fetch("http://localhost:3000/api/test", {
+  const someData = await fetch(`${url}/api/test`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
