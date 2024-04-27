@@ -18,6 +18,17 @@ export const SubSettings = () => {
       color="warning"
     >
       <Tab
+        key="/settings"
+        title={
+          <div className="flex items-center">
+            <span className="mr-2">Users</span>
+            <IconUsers />
+          </div>
+        }
+        href="/settings"
+      />
+
+      <Tab
         key="/settings/users"
         title={
           <div className="flex items-center">
