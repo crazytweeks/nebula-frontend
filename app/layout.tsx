@@ -49,7 +49,7 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", defaultTheme: "system" }}>
           <Suspense
             fallback={
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center animate-pulse">
                 <Spinner />
               </div>
             }

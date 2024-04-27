@@ -12,7 +12,7 @@ export default function Error(data: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div>
+    <div className="absolute inset-0 flex items-center justify-center animate-pulse">
       <h2>Something went wrong!</h2>
       <button
         onClick={

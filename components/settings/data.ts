@@ -1,4 +1,5 @@
-import React from "react";
+import { faker } from "@faker-js/faker";
+
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
@@ -16,7 +17,43 @@ const statusOptions = [
   { name: "Vacation", uid: "vacation" },
 ];
 
-const users = [
+const genUser = () => {
+  return {
+    id: faker.database.mongodbObjectId(),
+    name: faker.person.fullName(),
+    role: faker.person.jobTitle(),
+    team: faker.person.jobArea(),
+    status: faker.helpers.arrayElement(statusOptions),
+    age: faker.number.int({ min: 14, max: 100 }),
+    avatar: faker.image.avatar(),
+    email: faker.internet.email(),
+    bio: faker.lorem.paragraph(),
+    date: faker.date.birthdate(),
+    createdAt: faker.date.past().toISOString(),
+    updatedAt: faker.date.recent().toISOString(),
+    lastLogin: faker.date.recent().toISOString(),
+    lastSeen: faker.date.recent().toISOString(),
+    lastActivity: faker.date.recent().toISOString(),
+    isActive: faker.helpers.arrayElement([true, false]),
+    isOnline: faker.helpers.arrayElement([true, false]),
+    isVerified: faker.helpers.arrayElement([true, false]),
+    isNew: faker.helpers.arrayElement([true, false]),
+    isFavorite: faker.helpers.arrayElement([true, false]),
+    isPro: faker.helpers.arrayElement([true, false]),
+  };
+};
+
+const createMany = (n: number) => {
+  const usrs = Array.from({ length: n }, () => genUser());
+
+  return usrs;
+};
+
+const users = createMany(1000);
+
+type USER = (typeof users)[number];
+
+const b = [
   {
     id: 1,
     name: "Tony Reichert",
@@ -219,4 +256,5 @@ const users = [
   },
 ];
 
-export { columns, users, statusOptions };
+export { columns, users, statusOptions, genUser, createMany };
+export type { USER };

@@ -1,3 +1,9 @@
+import { Spinner } from "@nextui-org/spinner";
+
 export default function Loading() {
-  return <h2 className="global">Loading...</h2>;
+  return (
+    <div className="absolute inset-0 flex items-center justify-center animate-pulse">
+      <Spinner size="lg" color="primary" />
+    </div>
+  );
 }

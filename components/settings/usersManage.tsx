@@ -19,12 +19,12 @@ import {
 import { User as NextUiUser } from "@nextui-org/user";
 import { IconVerticalDots } from "@icons/vericalDots";
 import { IconChevronDown } from "@icons/chevronDown";
-import { columns, users, statusOptions } from "./data";
+import { columns, USER, createMany, statusOptions } from "./data";
 import { Chip, ChipProps } from "@nextui-org/chip";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { IconSearch } from "@icons/search";
-import { IconPlus } from "../icons/plus";
+import { IconPlus } from "@icons/plus";
 import { Pagination } from "@nextui-org/pagination";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
@@ -34,8 +34,6 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
-
-type User = (typeof users)[0];
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -48,7 +46,7 @@ const UsersManage = () => {
     INITIAL_VISIBLE_COLUMNS
   );
   const [statusFilter, setStatusFilter] = React.useState("all");
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "age",
     direction: "ascending",
@@ -57,6 +55,7 @@ const UsersManage = () => {
   const [page, setPage] = React.useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
+  const users = createMany(10000);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === INITIAL_VISIBLE_COLUMNS) return columns; //TODO: need to do deep compare
@@ -79,7 +78,7 @@ const UsersManage = () => {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+        Array.from(statusFilter).includes(user.status.name)
       );
     }
 
@@ -96,17 +95,17 @@ const UsersManage = () => {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: User, b: User) => {
-      const first = a[sortDescriptor.column as keyof User] as number;
-      const second = b[sortDescriptor.column as keyof User] as number;
+    return [...items].sort((a, b) => {
+      const first = a[sortDescriptor.column as keyof USER] as number;
+      const second = b[sortDescriptor.column as keyof USER] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+  const renderCell = React.useCallback((user: USER, columnKey: React.Key) => {
+    const cellValue = user[columnKey as keyof USER];
 
     switch (columnKey) {
       case "name":
@@ -114,7 +113,9 @@ const UsersManage = () => {
           <NextUiUser
             avatarProps={{ radius: "lg", src: user.avatar }}
             description={user.email}
-            name={cellValue}
+            name={
+              <p className="text-bold text-small capitalize">{user.name}</p>
+            }
           >
             {user.email}
           </NextUiUser>
@@ -122,7 +123,9 @@ const UsersManage = () => {
       case "role":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
+            <p className="text-bold text-small capitalize">
+              {capitalize(user.role)}
+            </p>
             <p className="text-bold text-tiny capitalize text-default-400">
               {user.team}
             </p>
@@ -132,11 +135,11 @@ const UsersManage = () => {
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[user.status.uid]}
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {capitalize(user.status.name)}
           </Chip>
         );
       case "actions":
@@ -157,7 +160,7 @@ const UsersManage = () => {
           </div>
         );
       default:
-        return cellValue;
+        return String(cellValue);
     }
   }, []);
 
@@ -201,7 +204,7 @@ const UsersManage = () => {
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
-            className="w-full sm:max-w-[44%]"
+            className="w-full sm:max-w-[40%]"
             placeholder="Search by name..."
             startContent={<IconSearch />}
             value={filterValue}
@@ -338,7 +341,7 @@ const UsersManage = () => {
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
       classNames={{
-        wrapper: "max-h-[382px]",
+        wrapper: "max-h-full",
       }}
       selectedKeys={selectedKeys}
       selectionMode="multiple"
@@ -360,9 +363,9 @@ const UsersManage = () => {
         )}
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>
-        {(item) => (
+        {(item: any) => (
           <TableRow key={item.id}>
-            {(columnKey) => (
+            {(columnKey: any) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}
           </TableRow>

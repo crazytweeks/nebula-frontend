@@ -32,7 +32,7 @@ export const siteConfig = {
     },
     {
       label: "Settings",
-      href: "/setup",
+      href: "/settings",
       icon: IconSetting,
     },
   ],
