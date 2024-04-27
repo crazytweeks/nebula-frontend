@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { Tabs as Ts, Tab as T } from "@nextui-org/tabs";
 
 import { cn } from "@/lib/utils";
 
-const Tabs = TabsPrimitive.Root;
+const TabsRoot = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -15,17 +16,12 @@ const TabsList = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
-      className,
+      className
     )}
     {...props}
   />
 ));
 TabsList.displayName = TabsPrimitive.List.displayName;
-
-const tabButtonVariants = cn(
-  "hover:scale-90 hover:transition",
-  "duration-300 ease-in-out",
-);
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -35,8 +31,7 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
-      tabButtonVariants,
-      className,
+      className
     )}
     {...props}
   />
@@ -51,11 +46,49 @@ const TabsContent = React.forwardRef<
     ref={ref}
     className={cn(
       "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className,
+      className
     )}
     {...props}
   />
 ));
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+type Props = {
+  trigger: TabsPrimitive.TabsTriggerProps[];
+  content: TabsPrimitive.TabsContentProps[];
+  tabsProps: TabsPrimitive.TabsProps;
+};
+
+const _Tabs: React.FC<React.PropsWithChildren<Props>> = ({
+  trigger,
+  content,
+  tabsProps,
+}) => {
+  return (
+    <TabsRoot {...tabsProps}>
+      <TabsList>
+        {/* <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger> */}
+
+        {trigger.map((item, index) => (
+          <TabsTrigger {...item} key={item.key ?? index}>
+            {item.children}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+
+      {/* <TabsContent value="account">
+        Make changes to your account here.
+      </TabsContent>
+      <TabsContent value="password">Change your password here.</TabsContent> */}
+
+      {content.map((item, index) => (
+        <TabsContent {...item} key={item.key ?? index}>
+          {item.children}
+        </TabsContent>
+      ))}
+    </TabsRoot>
+  );
+};
+
+export { TabsRoot as Tabs, TabsList, TabsTrigger, TabsContent };

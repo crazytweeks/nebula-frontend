@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import type { MobileFooterMenuList } from '@/components/navbar/mobileBottomNav';
-import React, { FC } from 'react';
-import { usePathname } from 'next/navigation';
-import { Link } from '@nextui-org/link';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@ui/tooltip';
+import type { MobileFooterMenuList } from "@/components/navbar/mobileBottomNav";
+import React, { FC } from "react";
+import { usePathname } from "next/navigation";
+import { Link } from "@nextui-org/link";
+import { Tooltip } from "@nextui-org/tooltip";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 const buttonsClassname = `
     pb-1
@@ -50,33 +50,17 @@ const MobileBottoms = ({ menuList }: { menuList: MobileFooterMenuList[] }) => {
 
 const MobileBottomNavButton: FC<Props> = ({ active, label, icon, path }) => {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          showAnchorIcon
-          href={path}
-          anchorIcon={icon}
-          isDisabled={active}
-          className={cn(
-            buttonsClassname,
-            active && 'border-b-2 border-primary-600 text-primary-600',
-          )}
-        />
-      </TooltipTrigger>
-
-      <TooltipContent
-        side="top"
-        sideOffset={12}
-        className="rounded-full border border-slate-300 bg-slate-200 font-bold
-          text-slate-900 opacity-60
-          shadow-2xl
-
-          dark:bg-slate-700 dark:text-slate-100
-          dark:opacity-80
-          "
-      >
-        <span>{label}</span>
-      </TooltipContent>
+    <Tooltip content={label}>
+      <Link
+        showAnchorIcon
+        href={path}
+        anchorIcon={icon}
+        isDisabled={active}
+        className={cn(
+          buttonsClassname,
+          active && "border-b-2 border-primary-600 text-primary-600"
+        )}
+      />
     </Tooltip>
   );
 };

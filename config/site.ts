@@ -3,8 +3,8 @@ import IconSetting from "@icons/setting";
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Some app name",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Nebula",
+  description: "",
   navItems: [
     {
       label: "Home",
@@ -31,7 +31,7 @@ export const siteConfig = {
       href: "/client",
     },
     {
-      label: "Setup",
+      label: "Settings",
       href: "/setup",
       icon: IconSetting,
     },
