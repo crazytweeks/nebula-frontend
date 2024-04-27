@@ -39,6 +39,8 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+const users = createMany(10000);
+
 const UsersManage = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<string[] | "all">([]);
@@ -55,7 +57,6 @@ const UsersManage = () => {
   const [page, setPage] = React.useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
-  const users = createMany(10000);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === INITIAL_VISIBLE_COLUMNS) return columns; //TODO: need to do deep compare
