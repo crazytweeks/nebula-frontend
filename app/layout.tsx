@@ -7,7 +7,7 @@ import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
 
-import { Suspense } from "react";
+import { FC, PropsWithChildren, Suspense } from "react";
 
 import AppLayout from "@/components/appLayout";
 import { Toaster } from "@/components/ui/sonner";
@@ -31,11 +31,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Bhuvan BM", url: "https://github.com/crazytweeks" }],
 };
 
-export default function RootLayout({
+type ParallelRoutes = {
+  models: React.ReactNode;
+};
+
+const RootLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  models,
+}) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -54,10 +57,15 @@ export default function RootLayout({
               </div>
             }
           >
-            <AppLayout>{children}</AppLayout>
+            <AppLayout>
+              {children}
+              {models}
+            </AppLayout>
           </Suspense>
         </Providers>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

@@ -3,7 +3,6 @@
 import React from "react";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
-import { SearchIcon } from "lucide-react";
 import {
   CommandDialog,
   CommandInput,
@@ -12,6 +11,7 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
+import { IconSearch } from "@icons/search";
 
 const suggestions = ["Calendar", "Search Emoji", "Calculator"];
 
@@ -69,7 +69,7 @@ const NavSearch = () => {
         labelPlacement="outside"
         placeholder="Search..."
         startContent={
-          <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
+          <IconSearch className="pointer-events-none flex-shrink-0 text-base text-default-400" />
         }
         type="search"
       />

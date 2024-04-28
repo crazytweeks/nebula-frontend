@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 
-export const revalidate = 1;
+export const revalidate = 10;
 
 const fetchData = async () => {
   // THIS IS SERVER SIDE HANDLER. Not client side.
@@ -22,7 +22,7 @@ export default async function Home() {
         </h1>
         <p>{siteConfig.description}</p>
 
-        {data && <pre>{JSON.stringify(data ?? {}, null, 2)}</pre>}
+        <h6>This is server side rendering. Data fetched at {data?.time}</h6>
       </div>
     </section>
   );

@@ -12,8 +12,6 @@ import {
 } from "@nextui-org/navbar";
 import { link as linkStyles } from "@nextui-org/theme";
 
-import SignIn from "@/app/sign-in";
-import SignOut from "@/app/sign-out";
 import { Logo, LogoIconOnly } from "@/components/icons";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { AvatarFallback } from "@/components/ui/avatar";
@@ -119,23 +117,7 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                {isAuthenticated ? (
-                  <SignOut
-                    onSignOut={async () => {
-                      "use server";
-
-                      // await signOut(logtoConfig);
-                    }}
-                  />
-                ) : (
-                  <SignIn
-                    onSignIn={async () => {
-                      "use server";
-
-                      // await signIn(logtoConfig);
-                    }}
-                  />
-                )}
+                Add signin and signout buttons here
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
