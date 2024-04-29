@@ -13,24 +13,24 @@ const url =
     : `http://localhost:3000`;
 
 const getInitialData = async () => {
-  const someData = await fetch(`${url}/api/test`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "321",
-    },
-  })
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  // const someData = await fetch(`${url}/api/test`, {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: "321",
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .catch((err) => console.error(err));
 
-  if (someData && someData.user) {
-    return {
-      isAuthenticated: true,
-      user: userSchema.parse(someData.user),
-    };
-  }
+  // if (someData && someData.user) {
+  //   return {
+  //     isAuthenticated: true,
+  //     user: userSchema.parse(someData.user),
+  //   };
+  // }
 
-  return { isAuthenticated: false };
+  return { isAuthenticated: false, user: undefined };
 }; //TODO: USER AUTH MOCKING IN DEVELOPMENT
 
 const AppLayout: FC<PropsWithChildren> = async ({ children }) => {

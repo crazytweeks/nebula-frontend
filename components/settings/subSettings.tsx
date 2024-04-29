@@ -10,13 +10,7 @@ export const SubSettings = () => {
   const pathname = usePathname();
 
   return (
-    <Tabs
-      aria-label="Settings"
-      selectedKey={pathname}
-      className="w-full px-2 pt-2 pb-2 mb-2 border-b "
-      size="sm"
-      color="warning"
-    >
+    <Tabs aria-label="Settings" selectedKey={pathname} color="warning">
       <Tab
         key="/settings"
         title={

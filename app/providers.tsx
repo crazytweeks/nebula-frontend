@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { NextUIProvider } from "@nextui-org/system";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
@@ -8,7 +8,7 @@ import { ThemeProviderProps } from "next-themes/dist/types";
 import { I18nProvider } from "@react-aria/i18n";
 
 export interface ProvidersProps {
-  children: React.ReactNode;
+  children: ReactNode;
   themeProps?: Omit<ThemeProviderProps, "children">;
 }
 

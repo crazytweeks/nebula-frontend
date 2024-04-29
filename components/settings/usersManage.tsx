@@ -39,7 +39,7 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const users = createMany(10000);
+const users = createMany(10);
 
 const UsersManage = () => {
   const [filterValue, setFilterValue] = React.useState("");
