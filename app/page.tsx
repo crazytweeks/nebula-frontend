@@ -5,7 +5,7 @@ import { Divider } from "@nextui-org/divider";
 import { Spinner } from "@nextui-org/spinner";
 import { Suspense } from "react";
 
-export const revalidate = 0;
+export const revalidate = 10;
 
 const fetchData = async () => {
   // THIS IS SERVER SIDE HANDLER. Not client side.

@@ -3,13 +3,13 @@ import { getModules } from "@/mock/getModuleList";
 import { Divider } from "@nextui-org/divider";
 import React from "react";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 const getData = async (count = 50) => {
   await awaitFor(1500);
   return {
     modules: getModules(count),
-    fetchAt: new Date().toLocaleTimeString(),
+    fetchAt: new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
   };
 };
 
@@ -20,7 +20,13 @@ const CacheComponent = async () => {
     <div className={cn("w-full h-full  overflow-auto")}>
       <h1>Below is a cached component</h1>
 
-      <p>{modules.length} modules</p>
+      <p
+        className={cn(
+          "mb-2 text-sm font-bold text-gray-500 uppercase tracking-wider"
+        )}
+      >
+        {modules.length} modules
+      </p>
 
       <p>{fetchAt}</p>
 

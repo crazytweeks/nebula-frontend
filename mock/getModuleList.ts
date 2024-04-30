@@ -2,13 +2,15 @@ import axios from "axios";
 import { z } from "zod";
 import { faker } from "@faker-js/faker";
 
-const schema = z.object({
+const moduleSchema = z.object({
   createdAt: z.string(),
   name: z.string(),
   id: z.string(),
 });
 
-type Module = z.infer<typeof schema>;
+const modulesSchema = z.array(moduleSchema);
+
+type Module = z.infer<typeof moduleSchema>;
 
 function createRandomModule(): Module {
   return {
@@ -35,7 +37,7 @@ const getModuleList = async () => {
   try {
     const { data } = await axiosInterceptor.get("modules");
 
-    return schema.parse(data);
+    return modulesSchema.parse(data);
   } catch (error) {
     console.log(error);
 
