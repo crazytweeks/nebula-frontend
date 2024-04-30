@@ -10,7 +10,7 @@ import { FC, PropsWithChildren, Suspense } from "react";
 import SubSettings from "@/components/settings/subSettings";
 
 const buttonIconClassName = cn(
-  "duration-300 ease-in-out hover:scale-110 hover:shadow-2xl hover:transition"
+  "duration-300 ease-in-out hover:scale-125 hover:shadow-2xl hover:transition"
 );
 
 const subMenus = [
@@ -90,25 +90,27 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
         <SubMenuSettings />
       </div>
 
-      <Suspense
-        fallback={
-          <div
-            className={cn(
-              "absolute flex items-center justify-center",
-              "rounded-none m-0 border-none p-0",
-              "shadow-none",
-              "md:rounded-xl md:shadow-sm md:mt-2 mf:border",
-              "h-full w-full",
-              "animate-pulse",
-              "top-50 left-50 right-50 bottom-50"
-            )}
-          >
-            <Spinner />
-          </div>
-        }
-      >
-        <CardContent>{children}</CardContent>
-      </Suspense>
+      <CardContent>
+        <Suspense
+          fallback={
+            <div
+              className={cn(
+                "absolute flex items-center justify-center",
+                "rounded-none m-0 border-none p-0",
+                "shadow-none",
+                "md:rounded-xl md:shadow-sm md:mt-2 mf:border",
+                "h-full w-full",
+                "animate-pulse",
+                "top-50 left-50 right-50 bottom-50"
+              )}
+            >
+              <Spinner />
+            </div>
+          }
+        >
+          {children}
+        </Suspense>
+      </CardContent>
     </Card>
   );
 };

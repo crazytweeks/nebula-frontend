@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
 import {
@@ -16,10 +16,10 @@ import { IconSearch } from "@icons/search";
 const suggestions = ["Calendar", "Search Emoji", "Calculator"];
 
 const NavSearch = () => {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
