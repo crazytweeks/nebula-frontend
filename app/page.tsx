@@ -1,5 +1,9 @@
+import CacheComponent from "@/components/cacheComponent";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { Divider } from "@nextui-org/divider";
+import { Spinner } from "@nextui-org/spinner";
+import { Suspense } from "react";
 
 export const revalidate = 0;
 
@@ -48,6 +52,12 @@ export default async function Home() {
         >
           Data fetched at {data?.time}
         </h2>
+
+        <Divider />
+
+        <Suspense fallback={<Spinner />}>
+          <CacheComponent />
+        </Suspense>
       </div>
     </section>
   );
