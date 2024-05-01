@@ -1,4 +1,4 @@
-import RoleSubPages from "@/components/settings/roleSubpages";
+import RoleSubPages from "@/components/settings/roleSubPages";
 import { cn } from "@/lib/utils";
 import React, { FC, PropsWithChildren } from "react";
 
