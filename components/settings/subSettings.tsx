@@ -15,7 +15,7 @@ export const SubSettings = () => {
         key="/settings"
         title={
           <div className="flex items-center">
-            <span className="mr-2">Users</span>
+            <div className="mr-2">Users</div>
             <IconUsers />
           </div>
         }
@@ -26,7 +26,7 @@ export const SubSettings = () => {
         key="/settings/users"
         title={
           <div className="flex items-center">
-            <span className="mr-2">Manage Users</span>
+            <div className="mr-2">Manage Users</div>
             <IconUsers />
           </div>
         }
@@ -37,7 +37,7 @@ export const SubSettings = () => {
         key="/settings/roles"
         title={
           <div className="flex items-center">
-            <span className="mr-2">Role</span>
+            <div className="mr-2">Role</div>
             {<IconLockClosed />}
           </div>
         }
@@ -48,7 +48,7 @@ export const SubSettings = () => {
         key="/settings/permissions"
         title={
           <div className="flex items-center">
-            <span className="mr-2">Permission</span>
+            <div className="mr-2">Permission</div>
             {<IconAndroidLock />}
           </div>
         }
