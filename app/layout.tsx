@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { Metadata } from "next";
 import { Spinner } from "@nextui-org/spinner";
 import clsx from "clsx";
-import { Analytics } from "@vercel/analytics/react";
 
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
@@ -12,6 +11,7 @@ import { FC, PropsWithChildren, Suspense } from "react";
 
 import AppLayout from "@/components/appLayout";
 import { Toaster } from "@/components/ui/sonner";
+import Vercel from "@/components/vercel";
 
 export const metadata: Metadata = {
   title: {
@@ -49,6 +49,7 @@ const RootLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
           fontSans.variable
         )}
       >
+        <Vercel />
         <Toaster />
         <Providers themeProps={{ attribute: "class", defaultTheme: "system" }}>
           <Suspense
@@ -64,7 +65,6 @@ const RootLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
             </AppLayout>
           </Suspense>
         </Providers>
-        <Analytics />
       </body>
     </html>
   );
