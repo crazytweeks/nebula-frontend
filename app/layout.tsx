@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { Metadata } from "next";
 import { Spinner } from "@nextui-org/spinner";
 import clsx from "clsx";
+import { Analytics } from "@vercel/analytics/react";
 
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
@@ -63,6 +64,7 @@ const RootLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
             </AppLayout>
           </Suspense>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
