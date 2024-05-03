@@ -32,7 +32,15 @@ const adminRole = {
   description: "Full access to all features",
   assignedTo: [],
 };
-const roles = [adminRole];
+
+const user = {
+  name: "User",
+  type: "Role role",
+  status: "active",
+  description: "Limited access to some features",
+  assignedTo: [],
+};
+const roles = [adminRole, user];
 
 const columns = [
   { name: "NAME", uid: "name", sortable: true },
@@ -208,6 +216,15 @@ const RolesTable = () => {
         }
         topContent={topContent}
         topContentPlacement="outside"
+        selectionMode="single"
+        onSelectionChange={(selected: any) => {
+          const selectedKey = selected["currentKey"];
+
+          const selectedRole = roles.find((role) => role.name === selectedKey);
+          alert(
+            `Selected Role: ${selectedRole?.name} with status: ${selectedRole?.status}`
+          );
+        }}
       >
         <TableHeader columns={columns}>
           {(column) => (
