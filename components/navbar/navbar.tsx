@@ -1,6 +1,5 @@
 import NextLink from "next/link";
 import { Avatar, AvatarIcon } from "@nextui-org/avatar";
-import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
   NavbarContent,
@@ -29,6 +28,7 @@ import NavSearch from "./navSearch";
 import Notifications from "./notifications";
 import { User } from "@/config/user";
 import Login from "@/app/auth/login/page";
+import Link from "next/link";
 
 type Props = {
   isAuthenticated: boolean;

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
   },
@@ -24,7 +24,6 @@
     "@nextui-org/image": "^2.0.27",
     "@nextui-org/input": "2.1.21",
     "@nextui-org/kbd": "2.0.28",
-    "@nextui-org/link": "2.0.29",
     "@nextui-org/modal": "^2.0.33",
     "@nextui-org/navbar": "2.0.30",
     "@nextui-org/pagination": "^2.0.30",

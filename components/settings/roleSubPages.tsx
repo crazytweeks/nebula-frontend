@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button, ButtonGroup } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
 
@@ -12,8 +12,6 @@ const RoleSubPages: FC = () => {
   return (
     <ButtonGroup color="primary" size="sm" variant="bordered">
       <Button
-        as={Link}
-        href="/settings/roles/default"
         color={pathName === "/settings/roles/default" ? "primary" : "default"}
         isDisabled={pathName === "/settings/roles/default"}
       >
@@ -23,7 +21,7 @@ const RoleSubPages: FC = () => {
             "transition duration-300 ease-in-out"
           )}
         >
-          Default Roles
+          <Link href="/settings/roles/default">Default Roles</Link>
         </div>
       </Button>
       <Button

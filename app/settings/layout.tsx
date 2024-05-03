@@ -5,10 +5,10 @@ import { IconUsers } from "@/components/icons/users";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
 import { Spinner } from "@nextui-org/spinner";
 import { FC, PropsWithChildren, Suspense } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 const buttonIconClassName = cn(
   "duration-300 ease-in-out hover:scale-125 hover:shadow-2xl hover:transition"
 );
@@ -42,7 +42,7 @@ const SubMenuSettings: FC = () => {
     <div
       className={cn(
         "flex flex-row gap-2 items-center justify-left",
-        "rounded-none m-2 border-none p-2"
+        "rounded-none  border-none p-2 md:px-0"
       )}
     >
       {subMenus.map(({ label, path, icon }, i) => (
@@ -50,14 +50,14 @@ const SubMenuSettings: FC = () => {
           key={label ?? i}
           as={Link}
           href={path}
-          showAnchorIcon={icon !== undefined}
-          anchorIcon={icon}
           color={pathname === path ? "primary" : "default"}
           className={cn(
             "hover:scale-90",
             "transition duration-300 ease-in-out"
           )}
           size={"sm"}
+          variant={"bordered"}
+          endContent={icon}
         >
           {label}
         </Button>

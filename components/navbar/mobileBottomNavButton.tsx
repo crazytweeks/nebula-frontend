@@ -3,10 +3,10 @@
 import type { MobileFooterMenuList } from "@/components/navbar/mobileBottomNav";
 import React, { FC } from "react";
 import { usePathname } from "next/navigation";
-import { Link } from "@nextui-org/link";
 import { Tooltip } from "@nextui-org/tooltip";
 
 import { cn } from "@/lib/utils";
+import { Button } from "@nextui-org/button";
 
 const buttonsClassname = `
     pb-1
@@ -51,10 +51,10 @@ const MobileBottoms = ({ menuList }: { menuList: MobileFooterMenuList[] }) => {
 const MobileBottomNavButton: FC<Props> = ({ active, label, icon, path }) => {
   return (
     <Tooltip content={label}>
-      <Link
-        showAnchorIcon
+      <Button
+        isIconOnly
         href={path}
-        anchorIcon={icon}
+        endContent={icon}
         isDisabled={active}
         className={cn(
           buttonsClassname,
