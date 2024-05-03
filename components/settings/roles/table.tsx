@@ -18,6 +18,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { capitalize, cn } from "@/lib/utils";
 import AddRole from "./addRole";
 import { useDisclosure } from "@nextui-org/modal";
+import { IRole } from "./roleSchemaTypes";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -27,18 +28,20 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 
 const adminRole = {
   name: "Admin",
-  type: "Role role",
+  type: "IRole role",
   status: "active",
   description: "Full access to all features",
   assignedTo: [],
+  locked: true,
 };
 
 const user = {
   name: "User",
-  type: "Role role",
+  type: "IRole role",
   status: "active",
   description: "Limited access to some features",
   assignedTo: [],
+  locked: true,
 };
 const roles = [adminRole, user];
 
@@ -51,8 +54,6 @@ const columns = [
 ];
 
 const rowsPerPage = 10;
-
-type Role = (typeof roles)[0];
 
 const RolesTable = () => {
   const [filterValue, setFilterValue] = useState("");
@@ -79,11 +80,11 @@ const RolesTable = () => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return filteredItems.slice(start, end);
+    return filteredItems.slice(start, end) as IRole[];
   }, [page, filteredItems, rowsPerPage]);
 
-  const renderCell = React.useCallback((role: Role, columnKey: React.Key) => {
-    const cellValue = role[columnKey as keyof Role];
+  const renderCell = React.useCallback((role: IRole, columnKey: React.Key) => {
+    const cellValue = role[columnKey as keyof IRole];
     switch (columnKey) {
       case "status":
         return (
@@ -96,12 +97,18 @@ const RolesTable = () => {
           </Chip>
         );
       case "description":
-        return <p className="text-bold text-small capitalize">{cellValue}</p>;
+        return (
+          <p className="text-bold text-small capitalize">{String(cellValue)}</p>
+        );
       case "assignedTo":
         return (
           <div className="relative flex justify-end items-center gap-2">
             <p className="text-bold text-small capitalize">
-              {cellValue.length}
+              {typeof cellValue === "string"
+                ? cellValue
+                : typeof cellValue === "object"
+                ? cellValue.length
+                : 0}
             </p>
             <p className="text-bold text-tiny capitalize text-default-400">
               Users
@@ -222,7 +229,7 @@ const RolesTable = () => {
 
           const selectedRole = roles.find((role) => role.name === selectedKey);
           alert(
-            `Selected Role: ${selectedRole?.name} with status: ${selectedRole?.status}`
+            `Selected IRole: ${selectedRole?.name} with status: ${selectedRole?.status}`
           );
         }}
       >
