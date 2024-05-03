@@ -13,16 +13,13 @@ import {
   userTypes,
   type IProfile,
 } from "./profileSchemaTypes";
-import {
-  FInput,
-  FSelect,
-  FTextarea,
-  FDatePicker,
-} from "./profileFormController";
+import { FSelect, FDatePicker } from "./profileFormController";
 import ConfirmModel from "../confirm/confirmModel";
 import { useDisclosure } from "@nextui-org/modal";
 import { toast } from "sonner";
 import { CardDescription, CardHeader, CardTitle } from "../ui/card";
+import FInput from "@/lib/form/FInput";
+import FTextarea from "@/lib/form/FTextArea";
 
 const ProfileFields = () => {
   const profileInputRef = useRef<HTMLInputElement>(null);

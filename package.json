@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "lint": "next lint",
     "start": "next start"
   },
@@ -28,6 +28,7 @@
     "@nextui-org/modal": "^2.0.33",
     "@nextui-org/navbar": "2.0.30",
     "@nextui-org/pagination": "^2.0.30",
+    "@nextui-org/radio": "^2.0.28",
     "@nextui-org/select": "^2.1.27",
     "@nextui-org/skeleton": "^2.0.27",
     "@nextui-org/snippet": "2.0.35",

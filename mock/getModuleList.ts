@@ -27,7 +27,7 @@ const getModules = (count = 5): Module[] =>
 
 const axiosInterceptor = axios.create({
   baseURL: "https://662aeb73de35f91de156be39.mockapi.io/api/",
-  timeout: 1000,
+  timeout: 6000,
   headers: {
     "Content-Type": "application/json",
   },

@@ -8,3 +8,15 @@ export function cn(...inputs: ClassValue[]) {
 
 export const awaitFor = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export function capitalize(
+  str: string | null | undefined | number | boolean | never | any
+) {
+  if (!str || typeof str !== "string" || str.length === 0) return "";
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function upperCase(str: string) {
+  return str.toUpperCase();
+}

@@ -74,19 +74,6 @@ const profileSchema = z.object({
 });
 
 type IProfile = z.infer<typeof profileSchema>;
-type InputOptions = {
-  label?: string;
-  placeholder?: string;
-  type?:
-    | "button"
-    | "checkbox"
-    | "string"
-    | "number"
-    | "date"
-    | "file"
-    | "tel"
-    | "email";
-};
 
 type Option = { label: string; value: string };
 
@@ -101,4 +88,4 @@ type DatePickerOptions = {
 
 export { profileSchema, userTypes, gender };
 
-export type { IProfile, InputOptions, SelectOptions, DatePickerOptions };
+export type { IProfile, SelectOptions, DatePickerOptions };

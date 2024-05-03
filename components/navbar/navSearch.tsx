@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
 import {
@@ -12,27 +12,32 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { IconSearch } from "@icons/search";
+import useKeyPress from "@/hooks/useKeyPress";
+
+type CompProps = {
+  enableKeyPress?: boolean;
+};
 
 const suggestions = ["Calendar", "Search Emoji", "Calculator"];
 
-const NavSearch = () => {
+const NavSearch: FC<CompProps> = ({ enableKeyPress = false }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
+  const keyPressed = useKeyPress({
+    key: "k",
+    ctrlKey: true,
+  });
+
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
-      }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+    console.log("keyPressed && enableKeyPress: ", keyPressed && enableKeyPress);
+    if (keyPressed && enableKeyPress) {
+      setOpen((open) => !open);
+    }
+  }, [keyPressed, enableKeyPress]);
 
   return (
     <div>
-      {value}
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
           placeholder="Type a command or search..."

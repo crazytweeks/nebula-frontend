@@ -26,6 +26,7 @@ import { Button } from "@nextui-org/button";
 import { IconSearch } from "@icons/search";
 import { IconPlus } from "@icons/plus";
 import { Pagination } from "@nextui-org/pagination";
+import { capitalize } from "@/lib/utils";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -34,10 +35,6 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
 const users = createMany(10);
 

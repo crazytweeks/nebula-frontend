@@ -1,11 +1,9 @@
-import RoleSubPages from "@/components/settings/roleSubPages";
-import { cn } from "@/lib/utils";
-import React, { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-4")}>
-      <RoleSubPages />
+    <div>
+      {/* <RoleSubPages /> */}
 
       {children}
     </div>

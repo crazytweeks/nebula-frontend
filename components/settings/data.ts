@@ -49,7 +49,7 @@ const createMany = (n: number) => {
   return usrs;
 };
 
-const users = createMany(1000);
+const users = createMany(3);
 
 type USER = (typeof users)[number];
 

@@ -1,55 +1,12 @@
-import { Input, Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
-import { parseDate } from "@internationalized/date";
 import { DatePicker } from "@nextui-org/date-picker";
 import { UseControllerProps, useController } from "react-hook-form";
 import type {
   DatePickerOptions,
   IProfile,
-  InputOptions,
   SelectOptions,
 } from "./profileSchemaTypes";
-import { DateValue, now, parseAbsoluteToLocal } from "@internationalized/date";
 
-const FInput = (props: UseControllerProps<IProfile> & InputOptions) => {
-  const { field, fieldState } = useController(props);
-
-  return (
-    <Input
-      {...field}
-      label={props.label ?? props.name}
-      labelPlacement="outside"
-      value={String(field.value ?? "")}
-      placeholder={props.placeholder}
-      type={props.type ?? "string"}
-      isInvalid={fieldState.invalid}
-      errorMessage={fieldState.error?.message}
-      isRequired={Boolean(props.rules?.required) ?? false}
-    />
-  );
-};
-
-const FTextarea = (props: UseControllerProps<IProfile> & InputOptions) => {
-  const { field, fieldState } = useController(props);
-
-  return (
-    <Textarea
-      {...field}
-      label={props.label ?? props.name}
-      labelPlacement="outside"
-      value={String(field.value ?? "")}
-      placeholder={props.placeholder}
-      type={props.type ?? "string"}
-      isInvalid={
-        fieldState.isTouched && fieldState.isDirty && fieldState.invalid
-      }
-      errorMessage={fieldState.error?.message}
-      isRequired={Boolean(props.rules?.required) ?? false}
-      minRows={1}
-      maxRows={4}
-    />
-  );
-};
 const FDatePicker = (
   props: UseControllerProps<IProfile> & DatePickerOptions
 ) => {
@@ -90,4 +47,4 @@ const FSelect = (props: UseControllerProps<IProfile> & SelectOptions) => {
   );
 };
 
-export { FInput, FTextarea, FDatePicker, FSelect };
+export { FDatePicker, FSelect };

@@ -6,11 +6,16 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const nextConfig = {
-  reactStrictMode: true, // Enable React strict mode for improved error handling
-  swcMinify: true, // Enable SWC minification for improved performance
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
+  experimental: {
+    turbo: {
+      typedRoutes: true,
+    },
   },
+  reactStrictMode: true, // Enable React strict mode for improved error handling
+  // swcMinify: true, // Enable SWC minification for improved performance
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
+  // },
   images: {
     remotePatterns: [
       {
@@ -55,4 +60,5 @@ const withPWA = require("next-pwa")({
   skipWaiting: true, // Skip waiting for service worker activation
 });
 
-module.exports = withBundleAnalyzer(withPWA(nextConfig));
+// module.exports = withBundleAnalyzer(withPWA(nextConfig));
+module.exports = nextConfig;

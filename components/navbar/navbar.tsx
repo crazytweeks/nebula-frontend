@@ -28,6 +28,7 @@ import { cn } from "@/lib/utils";
 import NavSearch from "./navSearch";
 import Notifications from "./notifications";
 import { User } from "@/config/user";
+import Login from "@/app/auth/login/page";
 
 type Props = {
   isAuthenticated: boolean;
@@ -94,7 +95,7 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
           <Notifications />
         </NavbarItem>
         <NavbarItem>
-          <NavSearch />
+          <NavSearch enableKeyPress={true} />
         </NavbarItem>
         <NavbarItem>
           <DropdownMenu>
@@ -117,7 +118,10 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                Add signin and signout buttons here
+                <Link href="/auth/login">Login</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/auth/sign-out">Sign out</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -131,7 +135,7 @@ export const Navbar = async ({ user, isAuthenticated }: Props) => {
       </NavbarContent>
 
       <NavbarMenu>
-        <NavSearch />
+        <NavSearch enableKeyPress={false} />
         <div className="mx-4 mt-4 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>

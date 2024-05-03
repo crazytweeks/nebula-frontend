@@ -30,7 +30,10 @@ const useKeyPress = (props: Options | string) => {
       if (altKey && !ev.altKey) return false;
       if (metaKey && !ev.metaKey) return false;
 
-      if (ev.key.toLowerCase() === key.toLowerCase()) setKeyPressed(true);
+      if (ev.key.toLowerCase() === key.toLowerCase()) {
+        ev.preventDefault();
+        setKeyPressed(true);
+      }
     };
 
     const upHandler = (ev: KeyboardEvent) => {
@@ -41,27 +44,20 @@ const useKeyPress = (props: Options | string) => {
       if (altKey && !ev.altKey) return true;
       if (metaKey && !ev.metaKey) return true;
 
-      if (ev.key.toLowerCase() === key.toLowerCase()) setKeyPressed(false);
+      if (ev.key.toLowerCase() === key.toLowerCase()) {
+        ev.preventDefault();
+        setKeyPressed(false);
+      }
     };
 
-    const handleListenToKeyPress = () => {
-      window.addEventListener("keydown", downHandler);
-      window.addEventListener("keyup", upHandler);
-    };
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
 
-    const handleStopListenToKeyPress = () => {
+    return () => {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     };
-
-    handleListenToKeyPress();
-
-    return () => {
-      handleStopListenToKeyPress();
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // TODO: check if this is correct
+  }, []);
 
   return keyPressed;
 };
