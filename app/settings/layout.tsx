@@ -1,14 +1,14 @@
+"use client";
+
 import { IconAndroidLock, IconLockClosed } from "@/components/icons/lock";
 import { IconUsers } from "@/components/icons/users";
-import { headers } from "next/headers";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { Spinner } from "@nextui-org/spinner";
 import { FC, PropsWithChildren, Suspense } from "react";
-import SubSettings from "@/components/settings/subSettings";
-
+import { usePathname } from "next/navigation";
 const buttonIconClassName = cn(
   "duration-300 ease-in-out hover:scale-125 hover:shadow-2xl hover:transition"
 );
@@ -36,8 +36,7 @@ const subMenus = [
 ];
 
 const SubMenuSettings: FC = () => {
-  const headersList = headers();
-  const pathname = headersList.get("x-pathname") || "";
+  const pathname = usePathname();
 
   return (
     <div
@@ -58,6 +57,7 @@ const SubMenuSettings: FC = () => {
             "hover:scale-90",
             "transition duration-300 ease-in-out"
           )}
+          size={"sm"}
         >
           {label}
         </Button>
@@ -79,14 +79,14 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
        Server component path should be changed */}
       <div
         className={cn(
-          "grid",
-          "items-center justify-center",
-          "pl-5 pr-2",
+          "md:grid",
+          "md:items-center md:justify-center",
+          "md:pl-5 pr-2",
           "border-b mb-2",
           "lg:flex lg:flex-row lg:justify-between"
         )}
       >
-        <SubSettings />
+        {/* <SubSettings /> */}
         <SubMenuSettings />
       </div>
 
