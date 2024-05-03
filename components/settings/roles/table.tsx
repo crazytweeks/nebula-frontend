@@ -224,11 +224,11 @@ const RolesTable = () => {
           {(item) => (
             <TableRow
               key={item.name}
-              className={cn(
-                "cursor-pointer rounded-lg",
-                "hover:shadow",
-                "transition duration-200 ease-in-out"
-              )}
+              // className={cn(
+              //   "cursor-pointer rounded-lg",
+              //   "transition duration-200 ease-in-out",
+              //   "hover:shadow",
+              // )}
               onClick={(s) => {}}
             >
               {(columnKey) => (
