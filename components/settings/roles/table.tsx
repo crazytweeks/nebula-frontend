@@ -18,7 +18,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { capitalize, cn } from "@/lib/utils";
 import AddRole from "./addRole";
 import { useDisclosure } from "@nextui-org/modal";
-import { IRole } from "./roleSchemaTypes";
+import { IRole, Status } from "./roleSchemaTypes";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -26,31 +26,29 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   vacation: "warning",
 };
 
-const adminRole = {
+const adminRole: IRole = {
   name: "Admin",
-  type: "IRole role",
-  status: "active",
+  status: Status.ACTIVE,
   description: "Full access to all features",
   assignedTo: [],
-  locked: true,
+  isLocked: true,
 };
 
-const user = {
+const user: IRole = {
   name: "User",
-  type: "IRole role",
-  status: "active",
+  status: Status.ACTIVE,
   description: "Limited access to some features",
   assignedTo: [],
-  locked: true,
+  isLocked: true,
 };
 const roles = [adminRole, user];
 
 const columns = [
   { name: "NAME", uid: "name", sortable: true },
-  { name: "TYPE", uid: "type", sortable: true },
   { name: "DESCRIPTION", uid: "description", sortable: true },
   { name: "STATUS", uid: "status", sortable: true },
   { name: "ASSIGNED TO", uid: "assignedTo" },
+  { name: "🔒", uid: "isLocked" },
 ];
 
 const rowsPerPage = 10;
