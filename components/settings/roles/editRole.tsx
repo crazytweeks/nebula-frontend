@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { IRole, Status, roleSchema, statusOptions } from "./roleSchemaTypes";
 import {
   Modal,
@@ -16,6 +16,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import FInput from "@/lib/form/FInput";
 import FTextarea from "@/lib/form/FTextArea";
+import FRadioSelect from "@/lib/form/FRadio";
+import { Divider } from "@nextui-org/divider";
 
 type Props = {
   selectedRole: IRole | null;
@@ -23,12 +25,21 @@ type Props = {
 };
 
 const EditRoleModel: FC<Props> = ({ selectedRole, onOpenChange }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
   const { handleSubmit, control, reset, watch, setValue } = useForm<IRole>({
     resolver: zodResolver(roleSchema),
   });
 
   useEffect(() => {
-    if (selectedRole) reset(selectedRole);
+    if (selectedRole) {
+      reset(selectedRole);
+
+      if (!selectedRole.isLocked) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    }
   }, [selectedRole]);
 
   const onSubmit: SubmitHandler<IRole> = (data) => {
@@ -98,36 +109,68 @@ const EditRoleModel: FC<Props> = ({ selectedRole, onOpenChange }) => {
                 </ModalHeader>
                 <ModalBody>
                   <div className="flex flex-col gap-2">
-                    <div className="flex flex-col gap-1">
-                      <FInput
-                        control={control}
-                        name="name"
-                        label="Name"
-                        placeholder="Role name"
-                        rules={{ required: "Role name is required" }}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <FTextarea
-                        control={control}
-                        name="description"
-                        label="Description"
-                        placeholder="Role description"
-                        textAreaProps={{
-                          minRows: 2,
-                        }}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1"></div>
+                    <FInput
+                      control={control}
+                      name="name"
+                      label="Name"
+                      placeholder="Role name"
+                      rules={{ required: "Role name is required" }}
+                      disabled={isDisabled}
+                    />
+                    <FTextarea
+                      control={control}
+                      name="description"
+                      label="Description"
+                      disabled={isDisabled}
+                      placeholder="Role description"
+                      textAreaProps={{
+                        minRows: 2,
+                      }}
+                    />
+                    <FRadioSelect
+                      control={control}
+                      name="status"
+                      disabled={isDisabled}
+                      label="Status"
+                      options={statusOptions.map((status) => ({
+                        label: status.toUpperCase(),
+                        value: status.toLowerCase(),
+                      }))}
+                      rules={{ required: "Status is required" }}
+                    />
+                  </div>
+
+                  <Divider />
+
+                  <div>
+                    <h4 className="text-lg font-semibold">Permissions</h4>
+                    <p className="text-sm text-gray-500">
+                      Select the permissions for this role
+                    </p>
+                  </div>
+
+                  <Divider />
+
+                  <div>
+                    <h4 className="text-lg font-semibold">Assigned Users</h4>
+                    <p className="text-sm text-gray-500">
+                      Users assigned to this role
+                    </p>
                   </div>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Close
                   </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Save
-                  </Button>
+                  {
+                    <Button
+                      color={isDisabled ? "default" : "success"}
+                      disabled={isDisabled}
+                      type="submit"
+                    >
+                      Save
+                    </Button>
+                  }
                 </ModalFooter>
               </form>
             </>
