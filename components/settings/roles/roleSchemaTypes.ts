@@ -18,7 +18,7 @@ const roleSchema = z.object({
   status: z.enum([Status.ACTIVE, Status.PAUSED, Status.VACATION]),
   description: z.string().min(2).max(200).optional(),
   isLocked: z.boolean().default(false).optional(),
-  assignedTo: z.array(userSchema).default([]).optional(),
+  assignedTo: z.array(userSchema).default([]),
 });
 
 type IRole = z.infer<typeof roleSchema>;

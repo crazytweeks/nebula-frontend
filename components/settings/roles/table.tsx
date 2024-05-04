@@ -19,6 +19,9 @@ import { capitalize, cn } from "@/lib/utils";
 import AddRole from "./addRole";
 import { useDisclosure } from "@nextui-org/modal";
 import { IRole, Status } from "./roleSchemaTypes";
+import { IconLockClosed, IconLockOpen } from "@icons/lock";
+import { Tooltip } from "@nextui-org/tooltip";
+import EditRoleModel from "./editRole";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -39,9 +42,10 @@ const user: IRole = {
   status: Status.ACTIVE,
   description: "Limited access to some features",
   assignedTo: [],
-  isLocked: true,
+  isLocked: false,
 };
-const roles = [adminRole, user];
+
+const roles: IRole[] = [adminRole, user];
 
 const columns = [
   { name: "NAME", uid: "name", sortable: true },
@@ -57,6 +61,7 @@ const RolesTable = () => {
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedRole, setSelectedRole] = useState<IRole | null>(null);
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -113,6 +118,19 @@ const RolesTable = () => {
             </p>
           </div>
         );
+      case "isLocked":
+        return (
+          <div>
+            {typeof cellValue === "boolean" && cellValue ? (
+              <Tooltip content="This role is locked">
+                <IconLockClosed />
+              </Tooltip>
+            ) : (
+              <IconLockOpen />
+            )}
+          </div>
+        );
+
       default:
         return cellValue;
     }
@@ -202,13 +220,20 @@ const RolesTable = () => {
   }, [items.length, page, pages, hasSearchFilter]);
 
   const handleOpenChange = (reload = false) => {
-    onOpenChange();
+    if (isOpen) onOpenChange();
+
+    setSelectedRole(null);
+
     if (reload) setTimeout(() => alert("implement reload here"), 1000);
   };
 
   return (
     <>
       <AddRole isOpen={isOpen} onOpenChange={handleOpenChange} />
+      <EditRoleModel
+        selectedRole={selectedRole}
+        onOpenChange={handleOpenChange}
+      />
       <Table
         aria-label="Roles Table"
         isHeaderSticky
@@ -225,10 +250,10 @@ const RolesTable = () => {
         onSelectionChange={(selected: any) => {
           const selectedKey = selected["currentKey"];
 
-          const selectedRole = roles.find((role) => role.name === selectedKey);
-          alert(
-            `Selected IRole: ${selectedRole?.name} with status: ${selectedRole?.status}`
+          const selectedRole: IRole | undefined = roles.find(
+            (role) => role.name === selectedKey
           );
+          setSelectedRole(selectedRole ?? null);
         }}
       >
         <TableHeader columns={columns}>

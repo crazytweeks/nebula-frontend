@@ -1,8 +1,15 @@
-import { Textarea } from "@nextui-org/input";
+import { TextAreaProps, Textarea } from "@nextui-org/input";
 import { useController, type UseControllerProps } from "react-hook-form";
-import type { InputOptions } from "./InputOptions";
 
-const FTextarea = (props: UseControllerProps<any> & InputOptions) => {
+type TextAreaOptions = {
+  placeholder?: string;
+  label?: string;
+  type?: "string" | "number" | "password";
+
+  textAreaProps?: TextAreaProps;
+};
+
+const FTextarea = (props: UseControllerProps<any> & TextAreaOptions) => {
   const { field, fieldState } = useController(props);
 
   return (
@@ -20,6 +27,7 @@ const FTextarea = (props: UseControllerProps<any> & InputOptions) => {
       isRequired={Boolean(props.rules?.required) ?? false}
       minRows={1}
       maxRows={4}
+      {...props.textAreaProps}
     />
   );
 };
