@@ -7,11 +7,10 @@ import { Tooltip } from "@nextui-org/tooltip";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
 
 const buttonsClassname = `
-    pb-1
-    mx-1
-    
+   
     hover:border-red-800
     hover:text-slate-100
 
@@ -52,15 +51,14 @@ const MobileBottomNavButton: FC<Props> = ({ active, label, icon, path }) => {
   return (
     <Tooltip content={label}>
       <Button
-        isIconOnly
+        as={Link}
+        variant="ghost"
         href={path}
-        endContent={icon}
         isDisabled={active}
-        className={cn(
-          buttonsClassname,
-          active && "border-b-2 border-primary-600 text-primary-600"
-        )}
-      />
+        className={cn(buttonsClassname, active && "  text-primary-600")}
+      >
+        {icon}
+      </Button>
     </Tooltip>
   );
 };
