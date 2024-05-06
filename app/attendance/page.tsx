@@ -14,9 +14,11 @@ import {
   SwipeableListItem,
   SwipeAction,
   TrailingActions,
+  Type,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import { Alert } from "@/components/ui/alert";
+import { toast } from "sonner";
 
 const listOfStudents = [
   "John Doe",
@@ -33,11 +35,15 @@ type StudentItemProps = {
 };
 
 const handleAccept = (id: string) => () => {
-  console.log("[Handle ACCEPT]", name);
+  console.log("[Handle ACCEPT]", id);
+
+  toast.success(`Marked ${id} as present`);
 };
 
 const handleDelete = (id: string) => () => {
   console.log("[Handle DELETE]", id);
+
+  toast.error(`Marked ${id} as absent`);
 };
 
 const leadingActions: FC<StudentItemProps> = ({ name }) => (
@@ -79,6 +85,8 @@ const StudentItem: FC<StudentItemProps> = ({ name }) => {
       key={`item-${name}`}
       leadingActions={leadingActions({ name })}
       trailingActions={trailingActions({ name })}
+      fullSwipe={true}
+      actionDelay={500}
     >
       <div
         className={cn(
@@ -124,7 +132,7 @@ const StudentsList = () => {
   return (
     <div className="mt-6">
       <ul className="space-y-4">
-        <SwipeableList>
+        <SwipeableList threshold={0.25} fullSwipe={true} type={Type.MS}>
           {listOfStudents.map((student) => (
             <StudentItem key={student} name={student} />
           ))}
