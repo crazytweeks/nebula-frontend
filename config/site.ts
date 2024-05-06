@@ -11,8 +11,8 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Attendance",
+      href: "/attendance",
     },
     {
       label: "Pricing",
@@ -50,8 +50,8 @@ export const siteConfig = {
       href: "/projects",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "Attendance",
+      href: "/attendance",
     },
     {
       label: "Calendar",
