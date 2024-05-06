@@ -14,7 +14,7 @@ export type Student = {
   class: string;
 };
 
-export function createRandomStudent(): Student {
+function createRandomStudent(): Student {
   return {
     userId: faker.string.uuid(),
     username: faker.internet.userName(),
