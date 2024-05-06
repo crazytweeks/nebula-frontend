@@ -19,6 +19,7 @@ import {
 import "react-swipeable-list/dist/styles.css";
 import { Alert } from "@/components/ui/alert";
 import { toast } from "sonner";
+import { Badge } from "@nextui-org/badge";
 
 const listOfStudents = [
   "John Doe",
@@ -64,7 +65,7 @@ const leadingActions: FC<StudentItemProps> = ({ name }) => (
 
 const trailingActions: FC<StudentItemProps> = ({ name }) => (
   <TrailingActions>
-    <SwipeAction destructive={true} onClick={handleDelete(name)}>
+    <SwipeAction onClick={handleDelete(name)}>
       <Alert
         className={cn(
           "text-white bg-red-500 hover:bg-red-600",
@@ -80,12 +81,36 @@ const trailingActions: FC<StudentItemProps> = ({ name }) => (
 );
 
 const StudentItem: FC<StudentItemProps> = ({ name }) => {
+  const [marked, setMarked] = useState<
+    "present" | "absent" | "late" | undefined
+  >(undefined);
+
   return (
     <SwipeableListItem
       key={`item-${name}`}
       leadingActions={leadingActions({ name })}
       trailingActions={trailingActions({ name })}
-      fullSwipe={true}
+      onSwipeProgress={(progress, direction) => {
+        if (progress > 25 && direction === "left") {
+          if (!marked) {
+            toast.error(`Marked ${name} as absent`);
+            setMarked("absent");
+          }
+        }
+
+        if (progress > 25 && direction === "right") {
+          if (!marked) {
+            toast.success(`Marked ${name} as present`);
+            setMarked("present");
+          }
+        }
+
+        if (typeof marked === "string" && progress < 25) {
+          toast.info(`Already marked ${name} as ${marked}.`);
+        }
+      }}
+      blockSwipe={false}
+      fullSwipe={false}
       actionDelay={500}
     >
       <div
@@ -100,29 +125,35 @@ const StudentItem: FC<StudentItemProps> = ({ name }) => {
         )}
       >
         <div>{name}</div>
-        <div className="flex items-center space-x-2">
-          <Button
-            className="bg-green-500 text-white hover:bg-green-600"
-            size="sm"
-            variant="outline"
-          >
-            Present
-          </Button>
-          <Button
-            className="bg-red-500 text-white hover:bg-red-600"
-            size="sm"
-            variant="outline"
-          >
-            Absent
-          </Button>
-          <Button
-            className="bg-yellow-500 text-white hover:bg-yellow-600"
-            size="sm"
-            variant="outline"
-          >
-            Late
-          </Button>
-        </div>
+        <Badge
+          color={marked ? "success" : "warning"}
+          content={marked === "present" ? "✅" : "❌"}
+          isInvisible={!marked}
+        >
+          <div className="md:flex items-center space-x-2 hidden">
+            <Button
+              className="bg-green-500 text-white hover:bg-green-600"
+              size="sm"
+              variant="outline"
+            >
+              Present
+            </Button>
+            <Button
+              className="bg-red-500 text-white hover:bg-red-600"
+              size="sm"
+              variant="outline"
+            >
+              Absent
+            </Button>
+            <Button
+              className="bg-yellow-500 text-white hover:bg-yellow-600"
+              size="sm"
+              variant="outline"
+            >
+              Late
+            </Button>
+          </div>
+        </Badge>
       </div>
     </SwipeableListItem>
   );
@@ -132,7 +163,7 @@ const StudentsList = () => {
   return (
     <div className="mt-6">
       <ul className="space-y-4">
-        <SwipeableList threshold={0.25} fullSwipe={true} type={Type.MS}>
+        <SwipeableList threshold={0.25} fullSwipe={true} type={Type.ANDROID}>
           {listOfStudents.map((student) => (
             <StudentItem key={student} name={student} />
           ))}
