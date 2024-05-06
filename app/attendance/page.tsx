@@ -28,12 +28,12 @@ export function createRandomStudent(): Student {
   };
 }
 
-const getListOfStudents = cache(async () => {
+const getListOfStudents = async () => {
   await awaitFor(1000);
   return faker.helpers.multiple(createRandomStudent, {
     count: 10,
   });
-});
+};
 
 export const revalidate = 30;
 
