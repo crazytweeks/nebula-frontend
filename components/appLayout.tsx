@@ -1,37 +1,12 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, cache } from "react";
 import { Navbar } from "@/components/navbar/navbar";
-import MobileBottomNav from "./navbar/mobileBottomNav";
-import { userSchema } from "@/config/user";
+// import MobileBottomNav from "./navbar/mobileBottomNav";
 
 export const revalidate = 30;
 
-const url =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : `http://localhost:3000`;
-
-const getInitialData = async () => {
-  // const someData = await fetch(`${url}/api/test`, {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "321",
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .catch((err) => console.error(err));
-
-  // if (someData && someData.user) {
-  //   return {
-  //     isAuthenticated: true,
-  //     user: userSchema.parse(someData.user),
-  //   };
-  // }
-
+const getInitialData = cache(async () => {
   return { isAuthenticated: false, user: undefined };
-}; //TODO: USER AUTH MOCKING IN DEVELOPMENT
+}); //TODO: USER AUTH MOCKING IN DEVELOPMENT
 
 const AppLayout: FC<PropsWithChildren> = async ({ children }) => {
   const { isAuthenticated, user } = await getInitialData();
@@ -44,7 +19,7 @@ const AppLayout: FC<PropsWithChildren> = async ({ children }) => {
           {children}
         </main>
 
-        <footer className="flex w-full items-center justify-center py-3">
+        {/* <footer className="flex w-full items-center justify-center py-3">
           <div
             className="
                 md:hidden
@@ -56,7 +31,7 @@ const AppLayout: FC<PropsWithChildren> = async ({ children }) => {
           >
             <MobileBottomNav />
           </div>
-        </footer>
+        </footer> */}
       </div>
     </div>
   );
