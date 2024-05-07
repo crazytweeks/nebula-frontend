@@ -14,7 +14,7 @@ export type Student = {
   class: string;
 };
 
-function createRandomStudent(): Student {
+const createRandomStudent = (): Student => {
   return {
     userId: faker.string.uuid(),
     username: faker.internet.userName(),
@@ -26,14 +26,14 @@ function createRandomStudent(): Student {
 
     class: faker.word.noun(),
   };
-}
+};
 
-const getListOfStudents = async () => {
+const getListOfStudents = cache(async () => {
   await awaitFor(1000);
   return faker.helpers.multiple(createRandomStudent, {
     count: 10,
   });
-};
+});
 
 export const revalidate = 30;
 

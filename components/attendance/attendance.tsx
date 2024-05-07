@@ -7,7 +7,13 @@ import { DateValue, parseDate } from "@internationalized/date";
 import { FC, useState } from "react";
 import { Select, SelectItem } from "@nextui-org/select";
 import { cn, currentDay } from "@/lib/utils";
-
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+} from "@nextui-org/dropdown";
 import {
   LeadingActions,
   SwipeableList,
@@ -22,6 +28,7 @@ import { toast } from "sonner";
 import { Badge } from "@nextui-org/badge";
 import { IconCalendarDays } from "@/components/icons/calender";
 import { Student } from "@/app/attendance/page";
+import { Icon3DotsVertical } from "@icons/3dots";
 
 type StudentItemProps = {
   name: string;
@@ -77,30 +84,53 @@ const StudentItem: FC<StudentItemProps> = ({ name }) => {
     "present" | "absent" | "late" | undefined
   >(undefined);
 
+  const alreadyMarked = typeof marked === "string";
+
   return (
     <SwipeableListItem
       key={`item-${name}`}
       leadingActions={leadingActions({ name })}
       trailingActions={trailingActions({ name })}
-      onSwipeProgress={(progress, direction) => {
-        if (progress > 25 && direction === "left") {
+      onSwipeEnd={(direction) => {
+        if (direction === "left") {
           if (!marked) {
             toast.error(`Marked ${name} as absent`);
             setMarked("absent");
           }
         }
 
-        if (progress > 25 && direction === "right") {
+        if (direction === "right") {
           if (!marked) {
             toast.success(`Marked ${name} as present`);
             setMarked("present");
           }
         }
 
-        if (typeof marked === "string" && progress < 25) {
+        if (alreadyMarked) {
           toast.info(`Already marked ${name} as ${marked}.`);
         }
       }}
+      // onSwipeProgress={(progress, direction) => {
+      //   if (progress < 25 || progress > 30) return;
+
+      //   if (direction === "left") {
+      //     if (!marked) {
+      //       toast.error(`Marked ${name} as absent`);
+      //       setMarked("absent");
+      //     }
+      //   }
+
+      //   if (direction === "right") {
+      //     if (!marked) {
+      //       toast.success(`Marked ${name} as present`);
+      //       setMarked("present");
+      //     }
+      //   }
+
+      //   if (alreadyMarked) {
+      //     toast.info(`Already marked ${name} as ${marked}.`);
+      //   }
+      // }}
       blockSwipe={false}
       fullSwipe={false}
       actionDelay={500}
@@ -113,39 +143,118 @@ const StudentItem: FC<StudentItemProps> = ({ name }) => {
 
           "cursor-pointer",
           "transition-all duration-200 ease-in-out",
-          "hover:bg-opacity-80 hover:bg-gray-100 dark:hover:bg-gray-800"
+          "hover:bg-opacity-80 hover:bg-gray-100 dark:hover:bg-gray-800",
+
+          "hover:shadow-lg dark:hover:shadow-xl md:hover:scale-95"
         )}
       >
-        <div>{name}</div>
-        <Badge
-          color={marked ? "success" : "warning"}
-          content={marked === "present" ? "✅" : "❌"}
-          isInvisible={!marked}
-        >
-          <div className="md:flex items-center space-x-2 hidden">
-            <Button
-              className="bg-green-500 text-white hover:bg-green-600"
-              size="sm"
-              variant="outline"
+        <div>
+          <Badge
+            color={
+              marked === "present"
+                ? "success"
+                : marked === "absent"
+                ? "danger"
+                : marked === "late"
+                ? "warning"
+                : "default"
+            }
+            content={
+              marked === "present"
+                ? "✅"
+                : marked === "absent"
+                ? "❌"
+                : marked === "late"
+                ? "🕒"
+                : ""
+            }
+            isInvisible={!marked}
+            variant="shadow"
+            placement="top-left"
+          >
+            <span
+              className={cn(
+                "text-lg font-bold",
+                "transition-all duration-200 ease-in-out",
+                "hover:text-green-500 dark:hover:text-green-400",
+
+                alreadyMarked &&
+                  "transform hover:scale-110 transition-transform duration-200 ease-in-out translate-x-4",
+                (marked === "present" && "text-green-500") ||
+                  (marked === "absent" && "text-red-500") ||
+                  (marked === "late" && "text-yellow-500")
+              )}
             >
-              Present
-            </Button>
-            <Button
-              className="bg-red-500 text-white hover:bg-red-600"
-              size="sm"
-              variant="outline"
-            >
-              Absent
-            </Button>
-            <Button
-              className="bg-yellow-500 text-white hover:bg-yellow-600"
-              size="sm"
-              variant="outline"
-            >
-              Late
-            </Button>
-          </div>
-        </Badge>
+              {name}
+            </span>
+          </Badge>
+        </div>
+
+        <div className="md:flex items-center space-x-2 hidden">
+          <Button
+            className="bg-green-500 text-white hover:bg-green-600"
+            size="sm"
+            variant="outline"
+            onClick={() => setMarked("present")}
+          >
+            P
+          </Button>
+          <Button
+            className="bg-red-500 text-white hover:bg-red-600"
+            size="sm"
+            variant="outline"
+            onClick={() => setMarked("absent")}
+          >
+            A
+          </Button>
+          <Button
+            className="bg-yellow-500 text-white hover:bg-yellow-600"
+            size="sm"
+            variant="outline"
+            onClick={() => setMarked("late")}
+          >
+            Late
+          </Button>
+        </div>
+
+        <div className="md:hidden flex">
+          <Dropdown>
+            <DropdownTrigger>
+              <Button size="sm" variant="link">
+                <Icon3DotsVertical />
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Static Actions">
+              <DropdownItem
+                key="present"
+                onClick={() => setMarked("present")}
+                color="success"
+                variant={alreadyMarked ? "shadow" : "faded"}
+                endContent={<span>✅</span>}
+              >
+                {"Present"}
+              </DropdownItem>
+              <DropdownItem
+                key="absent"
+                onClick={() => setMarked("absent")}
+                color="danger"
+                variant={alreadyMarked ? "shadow" : "faded"}
+                endContent={<span>❌</span>}
+              >
+                {"Absent"}
+              </DropdownItem>
+              <DropdownItem
+                key="late"
+                onClick={() => setMarked("late")}
+                color="warning"
+                variant={alreadyMarked ? "shadow" : "faded"}
+                endContent={<span>🕒</span>}
+              >
+                {"Late"}
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </div>
     </SwipeableListItem>
   );
@@ -157,7 +266,7 @@ const StudentsList: FC<{
   return (
     <div className="mt-6">
       <ul className="space-y-4">
-        <SwipeableList threshold={0.25} fullSwipe={true} type={Type.ANDROID}>
+        <SwipeableList threshold={0.25} fullSwipe={false} type={Type.ANDROID}>
           {students.map((student) => (
             <StudentItem key={student.userId} name={student.username} />
           ))}
