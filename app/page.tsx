@@ -1,6 +1,6 @@
 import CacheComponent from "@/components/cacheComponent";
 import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
+import { TZ, cn } from "@/lib/utils";
 import { Divider } from "@nextui-org/divider";
 import { Spinner } from "@nextui-org/spinner";
 import { Suspense } from "react";
@@ -10,7 +10,7 @@ export const revalidate = 10;
 const fetchData = async () => {
   // THIS IS SERVER SIDE HANDLER. Not client side.
 
-  const time = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+  const time = new Date().toLocaleString("en-US", { timeZone: TZ });
 
   return { time };
 };

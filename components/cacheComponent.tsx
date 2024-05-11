@@ -1,4 +1,4 @@
-import { awaitFor, cn } from "@/lib/utils";
+import { TZ, awaitFor, cn } from "@/lib/utils";
 import { getModules } from "@/mock/getModuleList";
 import { Divider } from "@nextui-org/divider";
 import React from "react";
@@ -9,7 +9,7 @@ const getData = async (count = 50) => {
   await awaitFor(1500);
   return {
     modules: getModules(count),
-    fetchAt: new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+    fetchAt: new Date().toLocaleString("en-US", { timeZone: TZ }),
   };
 };
 

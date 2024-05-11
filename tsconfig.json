@@ -22,6 +22,7 @@
     "paths": {
       "@/*": ["./*"],
       "@ui/*": ["./components/ui/*"],
+      "@styles/*": ["./styles/*"],
       "@hook/*": ["./hooks/*"],
       "@lib/*": ["./lib/*"],
       "@app/*": ["./app/*"],

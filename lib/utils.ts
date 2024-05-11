@@ -1,3 +1,4 @@
+import { getLocalTimeZone } from "@internationalized/date";
 import type { ClassValue } from "clsx";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -36,3 +37,5 @@ export const currentDay = () => {
     day > 9 ? day : `0${day}`
   }`;
 };
+
+export const TZ = getLocalTimeZone();

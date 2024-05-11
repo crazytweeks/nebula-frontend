@@ -13,7 +13,7 @@ export default function Error(data: { error: Error; reset: () => void }) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center animate-pulse">
-      <h2>Something went wrong!</h2>
+      <h2>Not found</h2>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment

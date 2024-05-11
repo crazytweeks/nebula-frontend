@@ -30,7 +30,6 @@ const NavSearch: FC<CompProps> = ({ enableKeyPress = false }) => {
   });
 
   useEffect(() => {
-    console.log("keyPressed && enableKeyPress: ", keyPressed && enableKeyPress);
     if (keyPressed && enableKeyPress) {
       setOpen((open) => !open);
     }

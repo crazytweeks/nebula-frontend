@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, cache } from "react";
 import { Navbar } from "@/components/navbar/navbar";
 // import MobileBottomNav from "./navbar/mobileBottomNav";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const revalidate = 30;
 
@@ -22,16 +23,16 @@ const AppLayout: FC<PropsWithChildren> = async ({ children }) => {
         {/* <footer className="flex w-full items-center justify-center py-3">
           <div
             className="
-                md:hidden
+            md:hidden
                 bottom-0
                 fixed
                 px-4
                 py-2
-              "
-          >
-            <MobileBottomNav />
-          </div>
-        </footer> */}
+                "
+                >
+                <MobileBottomNav />
+                </div>
+              </footer> */}
       </div>
     </div>
   );
