@@ -7,7 +7,6 @@
     "dev": "next dev --turbo",
     "lint": "next lint",
     "start": "next start",
-    "install": "pnpm install --frozen-lockfile",
     "clean": "rm -rf .next node_modules .eslintcache .pnpm-lock.yaml .yarn .yarnrc .yarnrc.yml yarn.lock && pnpm install"
   },
   "dependencies": {
