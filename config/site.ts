@@ -19,8 +19,8 @@ export const siteConfig = {
       href: "/pricing",
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "Time Table",
+      href: "/timeTable",
     },
     {
       label: "About",
@@ -54,8 +54,8 @@ export const siteConfig = {
       href: "/attendance",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
+      label: "Time Table",
+      href: "/timeTable",
     },
     {
       label: "Settings",

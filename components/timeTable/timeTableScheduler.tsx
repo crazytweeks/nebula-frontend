@@ -16,11 +16,8 @@ const subjects: SelectOption[] = [
 ];
 
 const TimeTableScheduler = () => {
-  const [agenda, setAgenda] = useState(true);
-
   return (
-    <div>
-      <Button onClick={() => setAgenda(!agenda)}>Toggle Agenda</Button>
+    <>
       <Scheduler
         selectedDate={new Date()}
         view="week"
@@ -96,10 +93,9 @@ const TimeTableScheduler = () => {
             color: "red",
           },
         ]}
-        agenda={agenda}
         timeZone={TZ}
       />
-    </div>
+    </>
   );
 };
 
