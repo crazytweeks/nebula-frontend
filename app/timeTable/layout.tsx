@@ -16,9 +16,9 @@ const TimeTableLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
   return (
     <div className="container w-full h-full mx-auto">
       {children}
-      <div className="pt-6" />
+      {/* <div className="pt-6" />
       {calender}
-      <Divider className="w-full m-6" />
+      <Divider className="w-full m-6" /> */}
       {scheduler}
     </div>
   );
