@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren, cache } from "react";
 import { Navbar } from "@/components/navbar/navbar";
 // import MobileBottomNav from "./navbar/mobileBottomNav";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const revalidate = 30;
 
