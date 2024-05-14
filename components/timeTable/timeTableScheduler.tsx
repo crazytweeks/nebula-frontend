@@ -3,8 +3,7 @@
 import { TZ } from "@/lib/utils";
 import { Scheduler } from "@aldabil/react-scheduler";
 import { SelectOption } from "@aldabil/react-scheduler/components/inputs/SelectInput";
-import { Button } from "@nextui-org/button";
-import { useState } from "react";
+import { EVENTS, RESOURCES, generateRandomEvents } from "./events";
 
 const subjects: SelectOption[] = [
   { id: 1, text: "Moot Court", value: "moot" },
@@ -17,45 +16,17 @@ const subjects: SelectOption[] = [
 
 const TimeTableScheduler = () => {
   return (
-    <>
+    <div className={"w-full h-full py-2 align-middle"}>
       <Scheduler
         selectedDate={new Date()}
-        view="week"
-        navigation={false}
+        view={"week"}
+        navigation={true}
         getRemoteEvents={() => {
           return new Promise((resolve) => {
             setTimeout(() => {
-              resolve([
-                {
-                  event_id: 3,
-                  title: "IPR II",
-                  start: new Date("2024/5/12 11:30"),
-                  end: new Date("2024/5/12 12:30"),
-                  color: "blue",
-                },
-                {
-                  event_id: 4,
-                  title: "Land Law",
-                  start: new Date("2024/5/12 12:30"),
-                  end: new Date("2024/5/12 13:30"),
-                  color: "purple",
-                },
-                {
-                  event_id: 5,
-                  title: "Environmental Law",
-                  start: new Date("2024/5/12 14:30"),
-                  end: new Date("2024/5/12 15:30"),
-                  color: "yellow",
-                  textColor: "black",
-                },
-                {
-                  event_id: 6,
-                  title: "White Color Crime",
-                  start: new Date("2024/5/12 15:30"),
-                  end: new Date("2024/5/12 16:30"),
-                  color: "orange",
-                },
-              ]);
+              const random = generateRandomEvents(5);
+
+              resolve([...EVENTS, ...random]);
             }, 1000);
           });
         }}
@@ -63,39 +34,48 @@ const TimeTableScheduler = () => {
           weekDays: [0, 1, 2, 3, 4, 5, 6],
           weekStartOn: 0,
           startHour: 9,
-          endHour: 18,
+          endHour: 19,
           step: 60,
-          navigation: false,
+          navigation: true,
           disableGoToDay: false,
         }}
         alwaysShowAgendaDays={true}
         fields={[
           {
-            name: "title",
+            name: "subject",
             type: "select",
             options: subjects,
-          },
-        ]}
-        events={[
-          {
-            event_id: 1,
-            title: "IOS",
-            start: new Date("2024/5/12 09:30"),
-            end: new Date("2024/5/12 10:30"),
-            color: "green",
-            agendaAvatar: "https://randomuser.me/api/portraits",
+            config: {
+              label: "Subject",
+              placeholder: "Select Subject",
+              required: true,
+            },
           },
           {
-            event_id: 2,
-            title: "IPR",
-            start: new Date("2024/5/12 10:30"),
-            end: new Date("2024/5/12 11:30"),
-            color: "red",
+            name: "title",
+            type: "input",
+            config: {
+              label: "Title",
+              placeholder: "Enter Title",
+              required: false,
+            },
           },
         ]}
+        resources={RESOURCES}
+        events={EVENTS}
         timeZone={TZ}
+        day={{
+          startHour: 9,
+          endHour: 19,
+          step: 30,
+          navigation: true,
+        }}
+        hourFormat="12"
+        onEventClick={(event) => {
+          console.log(event);
+        }}
       />
-    </>
+    </div>
   );
 };
 

@@ -1,9 +1,20 @@
-import { title } from '@/components/primitives';
+import db from "@/lib/pg/ghConnection";
+import { down, up } from "@/lib/pg/migrate";
+import React from "react";
 
-export default function AboutPage() {
-  return (
-    <div>
-      <h1 className={title()}>About</h1>
-    </div>
-  );
-}
+const dbCalls = async () => {
+  await up(db).catch((e) => {
+    console.log(e);
+  });
+  await down(db).catch((e) => {
+    console.log(e);
+  });
+};
+
+const Page = async () => {
+  await dbCalls();
+
+  return <div>Page</div>;
+};
+
+export default Page;

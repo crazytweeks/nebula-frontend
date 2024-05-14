@@ -2,11 +2,9 @@
 
 import { ThemeOptions, createTheme } from "@mui/material/styles";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import { FC, PropsWithChildren, useMemo } from "react";
 import { useTheme } from "next-themes";
 import { PaletteMode, useMediaQuery } from "@mui/material";
-import config from "@/tailwind.config";
 
 const getDesignTokens = (mode: PaletteMode | undefined): ThemeOptions => ({
   palette: {
