@@ -1,10 +1,12 @@
 import { Kysely, sql } from "kysely";
 
+const _SCHEMA = "active_directory";
+
 export async function up(db: Kysely<any>): Promise<void> {
   try {
-    await db
-      .withSchema("active_directory")
-      .schema.createTable("test_tt_subject")
+    await db.schema
+      .withSchema(_SCHEMA)
+      .createTable("test_tt_subject")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("name", "varchar", (col) => col.notNull().unique())
       .addColumn("code", "varchar", (col) => col.notNull().unique())
@@ -17,9 +19,9 @@ export async function up(db: Kysely<any>): Promise<void> {
       )
       .execute();
 
-    await db
-      .withSchema("active_directory")
-      .schema.createTable("test_tt_class_section")
+    await db.schema
+      .withSchema(_SCHEMA)
+      .createTable("test_tt_class_section")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("class_name", "varchar", (col) => col.notNull())
       .addColumn("class_description", "text")
@@ -29,9 +31,9 @@ export async function up(db: Kysely<any>): Promise<void> {
       )
       .execute();
 
-    await db
-      .withSchema("active_directory")
-      .schema.createTable("test_tt")
+    await db.schema
+      .withSchema(_SCHEMA)
+      .createTable("test_tt")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("title", "varchar", (col) => col.notNull())
       .addColumn("week_day", "integer", (col) => col.notNull())
@@ -50,9 +52,9 @@ export async function up(db: Kysely<any>): Promise<void> {
       )
       .execute();
 
-    await db
-      .withSchema("active_directory")
-      .schema.createTable("test_tt_event")
+    await db.schema
+      .withSchema(_SCHEMA)
+      .createTable("test_tt_event")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("title", "varchar", (col) => col)
       .addColumn("start", "timestamp", (col) => col.notNull())
@@ -92,30 +94,20 @@ export async function up(db: Kysely<any>): Promise<void> {
   //   .execute();
 }
 
+export const createSchema = async (db: Kysely<any>, schema: string) => {
+  const c = await db.schema.createSchema(schema).execute();
+  console.log("c: ", c);
+};
+
 export async function down(db: Kysely<any>): Promise<void> {
   // await db.schema.dropTable("pet").execute();
   // await db.schema.dropTable("person").execute();
   try {
-    await db
-      .withSchema("active_directory")
-      .schema.dropTable("test_tt")
-      .execute();
-    await db
-      .withSchema("active_directory")
-      .schema.dropTable("test_tt_subject")
-      .execute();
-    await db
-      .withSchema("active_directory")
-      .schema.dropTable("test_tt_class")
-      .execute();
-    await db
-      .withSchema("active_directory")
-      .schema.dropTable("test_tt_section")
-      .execute();
-    await db
-      .withSchema("active_directory")
-      .schema.dropTable("test_tt_event")
-      .execute();
+    await db.schema.withSchema(_SCHEMA).dropTable("test_tt").execute();
+    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_subject").execute();
+    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_class").execute();
+    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_section").execute();
+    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_event").execute();
   } catch (e) {
     return Promise.reject(e);
   }

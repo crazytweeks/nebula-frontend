@@ -13,7 +13,7 @@ const connection: PoolConfig = {
   ssl: {
     rejectUnauthorized: false,
   },
-  options: "-c search_path=active_directory",
+  // options: "-c search_path=active_directory",
   max: 10,
 };
 
