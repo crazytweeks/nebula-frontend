@@ -1,7 +1,6 @@
-import { TimeTable } from "@lib/pg/timeTable";
+import { TimeTable, Event, ClassSection, Subject } from "@lib/pg/timeTable";
 import { Pool, PoolConfig } from "pg";
 import { Generated, Kysely, PostgresDialect } from "kysely";
-import { up } from "./migrate";
 
 const env = process.env;
 
@@ -23,7 +22,10 @@ const dialect = new PostgresDialect({
 });
 
 interface Database {
-  activeDirectory_adusermaster: any;
+  test_tt_subject: Subject;
+  test_tt_class_section: ClassSection;
+  test_tt_event: Event;
+  test_tt: TimeTable;
 }
 
 const db = new Kysely<Database>({

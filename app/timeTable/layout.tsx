@@ -6,10 +6,14 @@ type ParallelRoutes = {
 
 const TimeTableLayout: FC<PropsWithChildren<ParallelRoutes>> = ({
   children,
+  scheduler,
 }) => {
-  if (typeof window === undefined) return null;
-
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      <div className="scheduler">{scheduler}</div>
+    </div>
+  );
 };
 
 export default TimeTableLayout;

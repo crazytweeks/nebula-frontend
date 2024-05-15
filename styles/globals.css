@@ -108,4 +108,9 @@
   .hover-style {
     @apply hover:scale-105 transition-all duration-300;
   }
+
+  .my-btn {
+    @apply hover:scale-105 transition-all duration-300;
+    @apply px-4 py-2 rounded-md bg-primary text-primary-foreground;
+  }
 }
