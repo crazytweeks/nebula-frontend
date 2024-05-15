@@ -2,7 +2,7 @@ import { Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .createTable("test_tt_subject")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("name", "varchar", (col) => col.notNull().unique())
@@ -17,7 +17,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .createTable("test_tt_class_section")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("class_name", "varchar", (col) => col.notNull())
@@ -29,7 +29,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .createTable("test_tt")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("title", "varchar", (col) => col.notNull())
@@ -50,7 +50,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .createTable("test_tt_event")
     .addColumn("id", "serial", (col) => col.primaryKey())
     .addColumn("title", "varchar", (col) => col)
@@ -92,24 +92,21 @@ export async function down(db: Kysely<any>): Promise<void> {
   // await db.schema.dropTable("pet").execute();
   // await db.schema.dropTable("person").execute();
 
+  await db.schema.withSchema("active_directory").dropTable("test_tt").execute();
   await db.schema
-    .withSchema("nebulaActiveDirectory")
-    .dropTable("test_tt")
-    .execute();
-  await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .dropTable("test_tt_subject")
     .execute();
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .dropTable("test_tt_class")
     .execute();
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .dropTable("test_tt_section")
     .execute();
   await db.schema
-    .withSchema("nebulaActiveDirectory")
+    .withSchema("active_directory")
     .dropTable("test_tt_event")
     .execute();
 }
