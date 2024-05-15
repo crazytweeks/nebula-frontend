@@ -19,6 +19,10 @@ const connection: PoolConfig = {
 
 const dialect = new PostgresDialect({
   pool: new Pool(connection),
+
+  onCreateConnection: async (connection) => {
+    console.info("Connected to database", connection);
+  },
 });
 
 interface Database {

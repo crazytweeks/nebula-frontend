@@ -1,5 +1,5 @@
 import db from "@/lib/pg/ghConnection";
-import { ClassSectionSchema, SubjectSchema } from "@/lib/pg/timeTable";
+import { ClassSectionSchema } from "@/lib/pg/timeTable";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {

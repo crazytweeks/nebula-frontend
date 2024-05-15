@@ -33,18 +33,12 @@ const AddSubjectForm: FC<{
 
     if (res.status === 200) {
       console.log("res: ", res);
-      toast("Subject Added Successfully", {
-        position: "top-right",
-        className: "bg-success-500",
-      });
+      toast.info("Subject Added Successfully");
 
       onClose();
     } else {
       console.log("res: ", res.json());
-      toast("Failed to Add Subject", {
-        position: "top-right",
-        className: "bg-error-500",
-      });
+      toast.error("Failed to Add Subject");
     }
   };
 

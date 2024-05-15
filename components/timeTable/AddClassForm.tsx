@@ -32,18 +32,12 @@ const AddClassForm: FC<{
 
     if (res.status === 200) {
       console.log("res: ", res);
-      toast("Class Added Successfully", {
-        position: "top-right",
-        className: "bg-success-500",
-      });
+      toast.info("Class Added Successfully");
 
       onClose();
     } else {
       console.log("res: ", res.json());
-      toast("Failed to Add Subject", {
-        position: "top-right",
-        className: "bg-error-500",
-      });
+      toast.error("Failed to Add Subject");
     }
   };
 
