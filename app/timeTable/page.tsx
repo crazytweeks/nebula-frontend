@@ -1,5 +1,6 @@
 import ClassSectionComponent from "@/components/timeTable/classSection";
 import SubjectsComponent from "@/components/timeTable/subject";
+import TimeTableScheduler from "@/components/timeTable/timeTableScheduler";
 import db from "@/lib/pg/ghConnection";
 import { ClassSection, Subject } from "@/lib/pg/timeTable";
 import { cn } from "@/lib/utils";
@@ -34,11 +35,19 @@ const page = async () => {
   const { classes, subjects } = await getData();
 
   return (
-    <div
-      className={cn("flex w-full items-center justify-between", "p-2", "gap-2")}
-    >
-      <ClassSectionComponent classes={classes} />
-      <SubjectsComponent subjects={subjects} />
+    <div>
+      <div
+        className={cn(
+          "flex w-full items-center justify-between",
+          "p-2",
+          "gap-2"
+        )}
+      >
+        <ClassSectionComponent classes={classes} />
+        <SubjectsComponent subjects={subjects} />
+      </div>
+
+      <TimeTableScheduler />
     </div>
   );
 };
