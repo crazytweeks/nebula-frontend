@@ -7,22 +7,32 @@ import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React from "react";
 
-const getClasses = async () => {
-  const data = (await db
-    .selectFrom("test_tt_class_section")
-    .selectAll()
-    .execute()) as ClassSection[];
+export const dynamic = "force-dynamic";
 
-  return data;
+const getClasses = async () => {
+  try {
+    const data = (await db
+      .selectFrom("test_tt_class_section")
+      .selectAll()
+      .execute()) as ClassSection[];
+
+    return data;
+  } catch (error) {
+    return [];
+  }
 };
 
 const getSubjects = async () => {
-  const data = (await db
-    .selectFrom("test_tt_subject")
-    .selectAll()
-    .execute()) as Subject[];
+  try {
+    const data = (await db
+      .selectFrom("test_tt_subject")
+      .selectAll()
+      .execute()) as Subject[];
 
-  return data;
+    return data;
+  } catch (error) {
+    return [];
+  }
 };
 
 const getData = async () => {
