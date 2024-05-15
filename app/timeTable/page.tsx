@@ -1,9 +1,10 @@
 import ClassSectionComponent from "@/components/timeTable/classSection";
 import SubjectsComponent from "@/components/timeTable/subject";
-import TimeTableScheduler from "@/components/timeTable/timeTableScheduler";
 import db from "@/lib/pg/ghConnection";
 import { ClassSection, Subject } from "@/lib/pg/timeTable";
 import { cn } from "@/lib/utils";
+import { Button } from "@nextui-org/button";
+import Link from "next/link";
 import React from "react";
 
 const getClasses = async () => {
@@ -47,7 +48,9 @@ const page = async () => {
         <SubjectsComponent subjects={subjects} />
       </div>
 
-      <TimeTableScheduler />
+      <Button as={Link} href="/timeTable/table">
+        Go to Time Table
+      </Button>
     </div>
   );
 };
