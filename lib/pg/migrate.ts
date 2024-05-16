@@ -5,7 +5,6 @@ const _SCHEMA = "active_directory";
 export async function up(db: Kysely<any>): Promise<void> {
   try {
     await db.schema
-      .withSchema(_SCHEMA)
       .createTable("test_tt_subject")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("name", "varchar", (col) => col.notNull().unique())
@@ -20,7 +19,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       .execute();
 
     await db.schema
-      .withSchema(_SCHEMA)
+
       .createTable("test_tt_class_section")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("class_name", "varchar", (col) => col.notNull())
@@ -32,7 +31,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       .execute();
 
     await db.schema
-      .withSchema(_SCHEMA)
+
       .createTable("test_tt")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("title", "varchar", (col) => col.notNull())
@@ -53,7 +52,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       .execute();
 
     await db.schema
-      .withSchema(_SCHEMA)
+
       .createTable("test_tt_event")
       .addColumn("id", "serial", (col) => col.primaryKey())
       .addColumn("title", "varchar", (col) => col)
@@ -103,11 +102,11 @@ export async function down(db: Kysely<any>): Promise<void> {
   // await db.schema.dropTable("pet").execute();
   // await db.schema.dropTable("person").execute();
   try {
-    await db.schema.withSchema(_SCHEMA).dropTable("test_tt").execute();
-    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_subject").execute();
-    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_class").execute();
-    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_section").execute();
-    await db.schema.withSchema(_SCHEMA).dropTable("test_tt_event").execute();
+    await db.schema.dropTable("test_tt").execute();
+    await db.schema.dropTable("test_tt_subject").execute();
+    await db.schema.dropTable("test_tt_class").execute();
+    await db.schema.dropTable("test_tt_section").execute();
+    await db.schema.dropTable("test_tt_event").execute();
   } catch (e) {
     return Promise.reject(e);
   }

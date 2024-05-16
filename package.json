@@ -67,6 +67,7 @@
     "@react-aria/ssr": "^3.9.3",
     "@react-aria/visually-hidden": "^3.8.11",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/postgres-kysely": "^0.8.0",
     "@vercel/speed-insights": "^1.0.10",
     "autoprefixer": "10.4.19",
     "axios": "^1.6.8",
