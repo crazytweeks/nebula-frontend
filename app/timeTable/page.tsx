@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React from "react";
+import PrepareTTData from "./prepareTTData";
 
 export const dynamic = "force-dynamic";
 
@@ -47,20 +48,7 @@ const page = async () => {
 
   return (
     <div>
-      <div
-        className={cn(
-          "flex w-full items-center justify-between",
-          "p-2",
-          "gap-2"
-        )}
-      >
-        <ClassSectionComponent classes={classes} />
-        <SubjectsComponent subjects={subjects} />
-      </div>
-
-      <Button as={Link} href="/timeTable/table">
-        Go to Time Table
-      </Button>
+      <PrepareTTData classes={classes} subjects={subjects} />
     </div>
   );
 };

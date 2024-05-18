@@ -17,10 +17,15 @@ import AddClassForm from "./AddClassForm";
 
 interface Props {
   classes: ClassSection[];
+  selectedClass: string | undefined;
+  setSelectedClass: (value: string) => void;
 }
 
-const ClassSectionComponent: FC<Props> = ({ classes }) => {
-  const [selectedClass, setSelectedClass] = useState<string | undefined>();
+const ClassSectionComponent: FC<Props> = ({
+  classes,
+  selectedClass,
+  setSelectedClass,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

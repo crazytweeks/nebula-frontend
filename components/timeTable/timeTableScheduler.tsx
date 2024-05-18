@@ -4,6 +4,7 @@ import { TZ } from "@/lib/utils";
 import { Scheduler } from "@aldabil/react-scheduler";
 import { SelectOption } from "@aldabil/react-scheduler/components/inputs/SelectInput";
 import { EVENTS, RESOURCES, generateRandomEvents } from "./events";
+import { FC } from "react";
 
 const subjects: SelectOption[] = [
   { id: 1, text: "Moot Court", value: "moot" },
@@ -14,7 +15,12 @@ const subjects: SelectOption[] = [
   { id: 6, text: "International Trade", value: "ite" },
 ];
 
-const TimeTableScheduler = () => {
+interface Props {
+  selectedClass: string;
+  selectedSubject: string;
+}
+
+const TimeTableScheduler: FC<Props> = ({ selectedClass, selectedSubject }) => {
   return (
     <div className={"w-full h-full py-2 align-middle"}>
       <Scheduler

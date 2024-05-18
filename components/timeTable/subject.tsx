@@ -14,10 +14,15 @@ import { Card } from "@nextui-org/card";
 
 interface Props {
   subjects: Subject[];
+  selectedSubject: string | undefined;
+  setSelectedSubject: (value: string) => void;
 }
 
-const SubjectsComponent: FC<Props> = ({ subjects }) => {
-  const [selectedClass, setSelectedClass] = useState<string | undefined>();
+const SubjectsComponent: FC<Props> = ({
+  subjects,
+  selectedSubject,
+  setSelectedSubject,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -27,18 +32,26 @@ const SubjectsComponent: FC<Props> = ({ subjects }) => {
       <Select
         label="Select Subject"
         size="sm"
-        value={selectedClass}
-        onChange={(e) => setSelectedClass(e.target.value)}
+        value={selectedSubject}
+        onChange={(e) => setSelectedSubject(e.target.value)}
         fullWidth={true}
       >
-        {subjects.map((s) => (
+        {subjects.map((subject) => (
           <SelectItem
-            key={s.id}
-            textValue={s.name}
-            value={String(s.id)}
-            className={cn(s.color && `border border[${s.color}]`)}
+            key={subject.id}
+            value={subject.id}
+            textValue={subject.name}
+            className={cn(
+              "flex items-center justify-between",
+              "p-2",
+              "gap-2 border-2 rounded-md",
+              "w-full"
+            )}
+            style={{
+              borderColor: subject.color ?? "transparent",
+            }}
           >
-            {s.name} {s.code}
+            {subject.name} {subject.code}
           </SelectItem>
         ))}
       </Select>
