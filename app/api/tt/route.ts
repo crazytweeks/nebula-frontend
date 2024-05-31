@@ -127,11 +127,14 @@ export async function GET(request: NextRequest) {
 
   const classId = parseInt(params.get("class") ?? "0");
 
-  const data = await db
-    .selectFrom("test_tt")
-    .where("class_section_id", "=", classId)
-    .selectAll()
-    .execute();
+  const data =
+    classId > 0
+      ? await db
+          .selectFrom("test_tt")
+          .where("class_section_id", "=", classId)
+          .selectAll()
+          .execute()
+      : await db.selectFrom("test_tt").selectAll().execute();
 
   return Response.json(
     {

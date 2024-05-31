@@ -76,22 +76,6 @@ export async function up(db: Kysely<any>): Promise<void> {
   } catch (e) {
     return Promise.reject(e);
   }
-
-  // await db.schema
-  //   .createTable("pet")
-  //   .addColumn("id", "serial", (col) => col.primaryKey())
-  //   .addColumn("name", "varchar", (col) => col.notNull().unique())
-  //   .addColumn("owner_id", "integer", (col) =>
-  //     col.references("person.id").onDelete("cascade").notNull()
-  //   )
-  //   .addColumn("species", "varchar", (col) => col.notNull())
-  //   .execute();
-
-  // await db.schema
-  //   .createIndex("pet_owner_id_index")
-  //   .on("test_tt")
-  //   .column("owner_id")
-  //   .execute();
 }
 
 export const createSchema = async (db: Kysely<any>, schema: string) => {
@@ -100,8 +84,6 @@ export const createSchema = async (db: Kysely<any>, schema: string) => {
 };
 
 export async function down(db: Kysely<any>): Promise<void> {
-  // await db.schema.dropTable("pet").execute();
-  // await db.schema.dropTable("person").execute();
   try {
     await db.schema.withSchema(_SCHEMA).dropTable("test_tt").execute();
     await db.schema.withSchema(_SCHEMA).dropTable("test_tt_subject").execute();
