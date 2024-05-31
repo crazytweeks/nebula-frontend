@@ -2,7 +2,6 @@
 
 import ClassSectionComponent from "@/components/timeTable/classSection";
 import SubjectsComponent from "@/components/timeTable/subject";
-import db from "@/lib/pg/ghConnection";
 import { ClassSection, Subject } from "@/lib/pg/timeTable";
 import { awaitFor, cn } from "@/lib/utils";
 import { Button } from "@nextui-org/button";

@@ -38,7 +38,7 @@ const TimeTableSchema = z.object({
 });
 
 interface TimeTableTable extends z.infer<typeof TimeTableSchema> {
-  id: ID;
+  id?: ID;
   created_at: Date;
 }
 

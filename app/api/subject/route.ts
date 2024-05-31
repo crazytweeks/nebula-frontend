@@ -15,3 +15,9 @@ export async function POST(request: NextRequest) {
 
   return Response.json({ message: "Hello World" }, { status: 200 });
 }
+
+export async function GET(request: NextRequest) {
+  const data = await db.selectFrom("test_tt_subject").selectAll().execute();
+
+  return Response.json({ message: "Hello World", data }, { status: 200 });
+}
