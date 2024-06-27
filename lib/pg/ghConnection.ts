@@ -10,11 +10,16 @@ interface Database {
   test_tt: TimeTable;
 }
 
+const connectionString = `postgres://${env.POSTGRES_USER}:${env.POSTGRES_PASSWORD}@${env.POSTGRES_HOST}:${env.POSTGRES_PORT}/${env.POSTGRES_DATABASE}`;
+console.log("connectionString: ", connectionString);
+
 const db = createKysely<Database>({
-  connectionString: env.PG_URL,
+  // connectionString: env.PG_URL,
   log(...messages) {
     console.log("Kysely: ", messages);
   },
+
+  connectionString,
 });
 
 export default db;
